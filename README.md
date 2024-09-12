@@ -2,8 +2,8 @@
 
 ## Overview
 
-This is a tool designed to promote products on Reddit through targeted
-interactions and creative posts.
+This is a tool designed to promote products on Reddit through targeted interactions and creative
+posts.
 
 ## Requirements
 
@@ -99,3 +99,5 @@ This project is licensed under the MIT License.
 
 # TODO
 
+-   change prompts so that only generated content is returned, without preambula, and so that
+    comments and posts looks like from humans

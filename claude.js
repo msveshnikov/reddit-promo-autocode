@@ -49,113 +49,106 @@ const generateContent = async (prompt, options = {}) => {
 };
 
 export const generateRedditPost = async (subreddit) => {
-    const prompt = `Create a Reddit post for r/${subreddit} promoting ${config.product.name}. The post should be engaging, relevant to the subreddit, and highlight ${config.product.name}'s advantages compared to other AI coding tools. Include a title and body text. Product description: ${config.product.description}`;
+    const prompt = `Create a Reddit post for r/${subreddit} about ${config.product.name}. Make it sound natural and engaging, as if written by a real user. Don't mention that it's promotional content. Include a title and body text.`;
     return generateContent(prompt, { maxTokens: 300 });
 };
 
 export const generateRedditComment = async (postTitle, toolMentioned) => {
-    const prompt = `Create a Reddit comment for a post titled "${postTitle}" that mentions ${toolMentioned}. The comment should promote ${config.product.name} as an alternative, highlighting its advantages. Keep it concise and relevant to the original post. Product description: ${config.product.description}`;
+    const prompt = `Write a Reddit comment for a post titled "${postTitle}" that mentions ${toolMentioned}. Casually bring up ${config.product.name} as an alternative you've been using. Keep it concise and relevant to the original post. Make it sound like a genuine user comment.`;
     return generateContent(prompt, { maxTokens: 150 });
 };
 
 export const analyzePostPerformance = async (postData) => {
-    const prompt = `Analyze the performance of this Reddit post:
-  Title: ${postData.title}
-  Upvotes: ${postData.upvotes}
-  Comments: ${postData.commentCount}
-  Subreddit: ${postData.subreddit}
+    const prompt = `Analyze this Reddit post:
+Title: ${postData.title}
+Upvotes: ${postData.upvotes}
+Comments: ${postData.commentCount}
+Subreddit: ${postData.subreddit}
 
-  Provide a brief analysis of the post's performance and suggestions for improvement.`;
+Briefly analyze its performance and suggest improvements.`;
     return generateContent(prompt, { maxTokens: 200 });
 };
 
 export const generatePersonalizedContent = async (subreddit, keywords) => {
-    const prompt = `Create personalized content for r/${subreddit} promoting ${
+    const prompt = `Create content for r/${subreddit} mentioning ${
         config.product.name
-    }. Incorporate these keywords: ${keywords.join(
+    }. Use these keywords naturally: ${keywords.join(
         ', '
-    )}. Ensure the content adheres to the subreddit's rules and preferences. Product description: ${
-        config.product.description
-    }`;
+    )}. Make it fit the subreddit's style and rules. Write as if you're a regular user sharing their experience.`;
     return generateContent(prompt, { maxTokens: 250 });
 };
 
 export const handleUserInteraction = async (userComment) => {
-    const prompt = `Respond to this user comment about ${config.product.name}: "${userComment}". Provide a helpful and engaging response that addresses the user's points and further promotes ${config.product.name}. Product description: ${config.product.description}`;
+    const prompt = `Respond to this comment about ${config.product.name}: "${userComment}". Write a helpful and friendly response addressing their points. Sound like a real user, not a company representative.`;
     return generateContent(prompt, { maxTokens: 200 });
 };
 
 export const optimizeContentForKeywords = async (content, keywords) => {
-    const prompt = `Optimize the following content for these keywords: ${keywords.join(
+    const prompt = `Rewrite this content, naturally incorporating these keywords: ${keywords.join(
         ', '
-    )}. Maintain the original meaning and tone while naturally incorporating the keywords:
+    )}. Keep the original meaning and tone:
 
 ${content}`;
     return generateContent(prompt, { maxTokens: content.length + 100 });
 };
 
 export const generateMultilingualContent = async (content, targetLanguage) => {
-    const prompt = `Translate and adapt the following content to ${targetLanguage}, ensuring it remains culturally appropriate and effective:
+    const prompt = `Translate and adapt this content to ${targetLanguage}, keeping it natural and culturally appropriate:
 
 ${content}`;
     return generateContent(prompt, { maxTokens: content.length * 1.5 });
 };
 
 export const generateContentSummary = async (content) => {
-    const prompt = `Summarize the key points of the following content in a concise manner:
+    const prompt = `Summarize the main points of this content briefly:
 
 ${content}`;
     return generateContent(prompt, { maxTokens: Math.min(content.length / 2, 150) });
 };
 
 export const scoreContent = async (content) => {
-    const prompt = `Rate the following content on a scale of 0 to 1, considering factors such as engagement, relevance, and persuasiveness:
+    const prompt = `Rate this content from 0 to 1 based on engagement, relevance, and persuasiveness:
 
 ${content}
 
-Provide a single number as the score.`;
+Give only the score as a number.`;
     const score = await generateContent(prompt, { maxTokens: 10 });
     return parseFloat(score);
 };
 
-export const generateAIDisclaimer = async () => {
-    const prompt = `Create a brief, transparent disclaimer stating that the content is AI-generated by ${config.product.name}, an AI coding assistant.`;
-    return generateContent(prompt, { maxTokens: 50 });
-};
-
 export const generateHashtags = async (content) => {
-    const prompt = `Generate 3-5 relevant hashtags for the following content:
+    const prompt = `Create 3-5 relevant hashtags for this content:
 
 ${content}`;
     return generateContent(prompt, { maxTokens: 50 });
 };
 
 export const generateCallToAction = async (platform) => {
-    const prompt = `Create a compelling call-to-action for ${config.product.name}, tailored for ${platform}. Encourage users to try ${config.product.name} for their coding needs. Product description: ${config.product.description}`;
+    const prompt = `Write a natural-sounding call-to-action for ${config.product.name} on ${platform}. Encourage users to try it without being too pushy.`;
     return generateContent(prompt, { maxTokens: 50 });
 };
 
 export const generateIndustryNews = async () => {
-    const prompt = `Generate a brief summary of recent developments in AI coding tools and technologies. Focus on trends relevant to ${config.product.name}'s capabilities. Product description: ${config.product.description}`;
+    const prompt = `Summarize recent developments in AI coding tools and technologies. Focus on trends relevant to ${config.product.name}'s features. Write it like a tech news article.`;
     return generateContent(prompt, { maxTokens: 200 });
 };
 
 export const generateCodeSnippet = async (language, task) => {
-    const prompt = `Create a short code snippet in ${language} that demonstrates how ${config.product.name} can assist with ${task}. Include a brief explanation of the code. Product description: ${config.product.description}`;
+    const prompt = `Create a short ${language} code snippet showing how ${config.product.name} can help with ${task}. Include a brief explanation. Write it as if you're sharing your own code.`;
     return generateContent(prompt, { maxTokens: 250 });
 };
 
 export const generateComparison = async (competitor) => {
-    const prompt = `Create a brief, factual comparison between ${config.product.name} and ${competitor}. Highlight ${config.product.name}'s unique features and advantages without disparaging the competitor. Product description: ${config.product.description}`;
+    const prompt = `Compare ${config.product.name} and ${competitor} objectively. Highlight ${config.product.name}'s unique features without criticizing the competitor. Write it like a user review.`;
     return generateContent(prompt, { maxTokens: 200 });
 };
 
 export const generateFAQ = async () => {
-    const prompt = `Generate 3-5 frequently asked questions and their answers about ${config.product.name}. Focus on questions that potential users might have when considering ${config.product.name} for their coding needs. Product description: ${config.product.description}`;
+    const prompt = `Create 3-5 common questions and answers about ${config.product.name}. Focus on what new users might ask. Write in a conversational tone.`;
     return generateContent(prompt, { maxTokens: 300 });
 };
 
 export const generateTestimonial = async () => {
-    const prompt = `Create a realistic testimonial from a hypothetical ${config.product.name} user. Highlight specific benefits and improvements they experienced in their coding workflow. Product description: ${config.product.description}`;
+    const prompt = `Write a realistic user testimonial for ${config.product.name}. Mention specific benefits they experienced in their coding work. Make it sound genuine and personal.`;
     return generateContent(prompt, { maxTokens: 150 });
 };
