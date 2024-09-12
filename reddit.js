@@ -226,7 +226,7 @@ const retryWithBackoff = async (fn, maxAttempts, initialDelay, backoffFactor) =>
 
 const refreshAuthToken = async () => {
     try {
-        await r.refreshAccessToken();
+        await r.refreshToken();
         logger.info('Successfully refreshed Reddit access token');
     } catch (error) {
         logger.error('Error refreshing Reddit access token:', error);
