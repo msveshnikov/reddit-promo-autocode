@@ -1,4 +1,4 @@
-# AutoCode: Reddit Promo Agent
+# AutoCode: Reddit Promo Agent (built by [AutoCode](https://autocode.work) in 5 minutes)
 
 ## Overview
 
@@ -12,7 +12,7 @@ interactions and creative posts.
 -   Create daily posts in relevant subreddits
 -   Focus on /r/AutoCode as the main subreddit
 -   Reddits to track: /r/ClaudeAI, /r/ChatGPTCoding, and /r/ArtificialIntelligence
--   use Claude Haiku to create posts and comments
+-   Use Claude Haiku to create posts and comments
 
 Environment variables:
 
@@ -39,11 +39,21 @@ Environment variables:
     - Implement a daily task scheduler for consistent posting
 
 4. Reddit API Integration
+
     - Utilize Reddit's API for seamless interaction
+
+5. Claude Haiku Integration
+
+    - Leverage Claude Haiku for content generation
+
+6. Configuration Management
+    - Use a centralized configuration file for easy adjustments
 
 ## Project Structure
 
 -   `reddit.js`: Main script for Reddit interactions
+-   `claude.js`: Integration with Claude Haiku for content generation
+-   `config.js`: Centralized configuration settings
 -   `package.json`: Project dependencies and scripts
 -   `.prettierrc`: Prettier configuration for consistent code formatting
 
@@ -94,9 +104,19 @@ Environment variables:
     - Implement comprehensive logging for debugging and monitoring
     - Use structured logging for easier analysis
 
-10. Configuration Management
-    - Use a configuration file for easily adjustable settings
-    - Implement environment-specific configurations
+10. AI-Driven Content Optimization
+
+    - Utilize Claude Haiku's capabilities for content refinement
+    - Implement feedback loops for continuous improvement
+
+11. Ethical Considerations
+
+    - Develop guidelines for responsible AI-driven promotion
+    - Implement transparency features for AI-generated content
+
+12. Security
+    - Regular security audits and vulnerability assessments
+    - Implement advanced encryption for sensitive data
 
 ## Future Enhancements
 
@@ -135,25 +155,25 @@ Environment variables:
     - Develop tools for team-based content creation and moderation
     - Implement a workflow system for content approval
 
-8. Security Enhancements
-
-    - Regular security audits and vulnerability assessments
-    - Implement advanced encryption for sensitive data
-
-9. Performance Optimization
+8. Performance Optimization
 
     - Implement caching strategies for frequently accessed data
     - Optimize database queries and indexing
 
-10. Ethical AI Integration
-    - Develop guidelines for responsible AI promotion
-    - Implement transparency features for AI-generated content
+9. Advanced Analytics
+
+    - Implement A/B testing for content optimization
+    - Develop predictive models for content performance
+
+10. Integration with Development Tools
+    - Create plugins for popular IDEs to showcase AutoCode's capabilities
+    - Develop a CLI tool for direct interaction with AutoCode
 
 ## Getting Started
 
 1. Clone the repository
 2. Install dependencies: `npm install`
-3. Set up Reddit API credentials in `.env` file
+3. Set up Reddit API credentials and Claude Haiku key in `.env` file
 4. Configure target subreddits and posting schedule in `config.js`
 5. Run the script: `npm start`
 
