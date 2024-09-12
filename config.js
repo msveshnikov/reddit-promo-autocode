@@ -52,11 +52,19 @@ AutoCode reads your README.md file and your sources and sends the instructions t
         ]
     },
     mainSubreddit: 'AutoCode',
-    targetSubreddits: ['ClaudeAI', 'ChatGPTCoding', 'ArtificialIntelligence', 'Bard', 'OpenAI', 'OnlyAICoding', 'LocalLLaMA'],
+    targetSubreddits: [
+        'ClaudeAI',
+        'ChatGPTCoding',
+        'ArtificialIntelligence',
+        'Bard',
+        'OpenAI',
+        'OnlyAICoding',
+        'LocalLLaMA'
+    ],
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     postSchedule: {
         interval: 'daily',
-        time: '21:02',
+        time: '21:02'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,

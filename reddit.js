@@ -105,7 +105,11 @@ const generateCreativePost = async (subreddit) => {
 
             const fullText = `${optimizedText}\n\n${hashtags}\n\n${callToAction}`;
 
-            const post = await r.getSubreddit(subreddit).submitSelfpost({ title, text: fullText });
+            const post = await r.getSubreddit(subreddit).submitSelfpost({
+                title,
+                text: fullText,
+                flair_id: await getSubredditFlairId(subreddit)
+            });
             logger.info(`Posted in r/${subreddit}`);
 
             if (config.analytics.trackPerformance) {
@@ -161,12 +165,17 @@ const generatePersonalizedPosts = async () => {
 
                     await r.getSubreddit(subreddit).submitSelfpost({
                         title: translatedTitle,
-                        text: translatedText
+                        text: translatedText,
+                        flair_id: await getSubredditFlairId(subreddit)
                     });
                     logger.info(`Posted personalized content in r/${subreddit} (${language})`);
                 }
             } else {
-                await r.getSubreddit(subreddit).submitSelfpost({ title, text });
+                await r.getSubreddit(subreddit).submitSelfpost({
+                    title,
+                    text,
+                    flair_id: await getSubredditFlairId(subreddit)
+                });
                 logger.info(`Posted personalized content in r/${subreddit}`);
             }
         }
@@ -197,6 +206,25 @@ const getSubredditKeywords = async (subreddit) => {
     } catch (error) {
         logger.error(`Error getting keywords for r/${subreddit}:`, error);
         return [];
+    }
+};
+
+const getSubredditFlairId = async (subreddit) => {
+    const cacheKey = `flair_${subreddit}`;
+    const cachedFlairId = cache.get(cacheKey);
+    if (cachedFlairId) return cachedFlairId;
+
+    try {
+        const flairs = await r.getSubreddit(subreddit).getLinkFlairTemplates();
+        if (flairs.length > 0) {
+            const flairId = flairs[0].flair_template_id;
+            cache.set(cacheKey, flairId);
+            return flairId;
+        }
+        return null;
+    } catch (error) {
+        logger.error(`Error getting flair ID for r/${subreddit}:`, error);
+        return null;
     }
 };
 

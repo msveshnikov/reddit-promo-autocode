@@ -99,5 +99,4 @@ This project is licensed under the MIT License.
 
 # TODO
 
--   change prompts so that only generated content is returned, without preambula, and so that
-    comments and posts looks like from humans
+-   Fix {"level":"error","message":"Error in generatePersonalizedPosts: SUBMIT_VALIDATION_FLAIR_REQUIRED,Your post must contain post flair.,flair","stack":"Error: SUBMIT_VALIDATION_FLAIR_REQUIRED,Your post must contain post flair.,flair\n    
