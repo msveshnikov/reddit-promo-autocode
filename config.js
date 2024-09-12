@@ -11,7 +11,7 @@ export default {
     interactionLimits: {
         maxCommentsPerHour: 10,
         maxPostsPerDay: 2,
-        minTimeBetweenComments: 300 // 5 minutes
+        minTimeBetweenComments: 300
     },
     contentGeneration: {
         minLength: 100,
@@ -39,7 +39,7 @@ export default {
         dashboardUrl: 'http://localhost:3000/dashboard'
     },
     security: {
-        tokenRefreshInterval: 3600000 // 1 hour
+        tokenRefreshInterval: 3600000
     },
     features: {
         postInteraction: true,
@@ -52,5 +52,41 @@ export default {
         authentication: true,
         logging: true
     },
-    plugins: []
+    plugins: [],
+    claudeConfig: {
+        model: 'claude-3-haiku-20240307',
+        maxTokens: 150,
+        temperature: 0.7
+    },
+    contentScoring: {
+        enabled: true,
+        minScore: 0.7
+    },
+    retryMechanism: {
+        enabled: true,
+        maxAttempts: 3,
+        initialDelay: 1000,
+        backoffFactor: 2
+    },
+    caching: {
+        enabled: true,
+        ttl: 3600
+    },
+    internationalization: {
+        enabled: false,
+        defaultLanguage: 'en',
+        supportedLanguages: ['en']
+    },
+    collaboration: {
+        enabled: false,
+        workflowApproval: false
+    },
+    performanceOptimization: {
+        caching: true,
+        databaseIndexing: true
+    },
+    ethicalAI: {
+        transparencyEnabled: true,
+        responsibleContentGuidelines: true
+    }
 };

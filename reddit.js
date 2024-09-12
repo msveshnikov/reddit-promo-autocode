@@ -2,45 +2,45 @@ import dotenv from 'dotenv';
 import snoowrap from 'snoowrap';
 import { scheduleJob } from 'node-schedule';
 import { createLogger, format, transports } from 'winston';
+import config from './config.js';
+import { getTextClaude } from './claude.js';
 
 dotenv.config();
 
 const logger = createLogger({
-    level: 'info',
-    format: format.combine(format.timestamp(), format.json()),
+    level: config.logging.level,
+    format: format.combine(format.timestamp(), format[config.logging.format]()),
     transports: [
         new transports.Console(),
         new transports.File({ filename: 'error.log', level: 'error' }),
-        new transports.File({ filename: 'combined.log' })
+        new transports.File({ filename: config.logging.filename })
     ]
 });
 
 const r = new snoowrap({
-    userAgent: 'AutoCode Reddit Promo Agent v1.0',
+    userAgent: config.apiConfig.userAgent,
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
     username: process.env.REDDIT_USERNAME,
     password: process.env.REDDIT_PASSWORD
 });
 
-const targetSubreddits = ['AutoCode', 'ClaudeAI', 'ChatGPTCoding', 'ArtificialIntelligence'];
-const aiCodingTools = ['Aider', 'Claude Dev', 'Cursor AI'];
-
 const findAndCommentOnPosts = async () => {
     try {
-        for (const subreddit of targetSubreddits) {
+        for (const subreddit of config.targetSubreddits) {
             const posts = await r.getSubreddit(subreddit).getNew({ limit: 10 });
             for (const post of posts) {
                 if (
-                    aiCodingTools.some((tool) =>
+                    config.aiCodingTools.some((tool) =>
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     )
                 ) {
-                    await post.reply(
-                        `Have you tried AutoCode? It's a great alternative to ${
-                            post.title.match(new RegExp(aiCodingTools.join('|'), 'i'))[0]
-                        }!`
+                    const comment = await getTextClaude(
+                        `Create a comment for a Reddit post about ${
+                            post.title.match(new RegExp(config.aiCodingTools.join('|'), 'i'))[0]
+                        } that promotes AutoCode as an alternative. Keep it concise and engaging.`
                     );
+                    await post.reply(comment);
                     logger.info(`Commented on post: ${post.title}`);
                 }
             }
@@ -52,8 +52,10 @@ const findAndCommentOnPosts = async () => {
 
 const generateCreativePost = async (subreddit) => {
     try {
-        const title = `Introducing AutoCode: The Future of AI-Powered Coding`;
-        const text = `AutoCode is revolutionizing the way developers write code. With advanced AI capabilities, it streamlines your workflow and boosts productivity. Try it today!`;
+        const prompt = `Create a Reddit post title and body for r/${subreddit} promoting AutoCode. The post should be engaging and relevant to the subreddit's audience.`;
+        const content = await getTextClaude(prompt);
+        const [title, ...textParts] = content.split('\n');
+        const text = textParts.join('\n');
 
         await r.getSubreddit(subreddit).submitSelfpost({ title, text });
         logger.info(`Posted in r/${subreddit}`);
@@ -64,13 +66,13 @@ const generateCreativePost = async (subreddit) => {
 
 const dailyTasks = async () => {
     await findAndCommentOnPosts();
-    for (const subreddit of targetSubreddits) {
+    for (const subreddit of [config.mainSubreddit, ...config.targetSubreddits]) {
         await generateCreativePost(subreddit);
     }
 };
 
 const startScheduler = () => {
-    scheduleJob('0 12 * * *', async () => {
+    scheduleJob(config.postSchedule.time, async () => {
         logger.info('Starting daily tasks');
         await dailyTasks();
         logger.info('Daily tasks completed');

@@ -12,6 +12,7 @@ interactions and creative posts.
 -   Create daily posts in relevant subreddits
 -   Focus on /r/AutoCode as the main subreddit
 -   Reddits to track: /r/ClaudeAI, /r/ChatGPTCoding, and /r/ArtificialIntelligence
+-   use Claude Haiku to create posts and comments
 
 Environment variables:
 
@@ -19,6 +20,7 @@ Environment variables:
 -   CLIENT_SECRET
 -   REDDIT_USERNAME
 -   REDDIT_PASSWORD
+-   CLAUDE_KEY
 
 ## Features
 
