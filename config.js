@@ -56,7 +56,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     keywordsToTrack: ['Aider', 'Claude Dev', 'Cursor AI'],
     postSchedule: {
         interval: 'daily',
-        time: '12:00',
+        time: '16:30',
         timezone: 'UTC'
     },
     interactionLimits: {
