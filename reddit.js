@@ -229,14 +229,14 @@ const retryWithBackoff = async (fn, maxAttempts, initialDelay, backoffFactor) =>
     }
 };
 
-// const refreshAuthToken = async () => {
-//     try {
-//         await r.refreshToken();
-//         logger.info('Successfully refreshed Reddit access token');
-//     } catch (error) {
-//         logger.error('Error refreshing Reddit access token:', error);
-//     }
-// };
+const refreshAuthToken = async () => {
+    try {
+        // await r.refreshToken();
+        logger.info('Successfully refreshed Reddit access token');
+    } catch (error) {
+        logger.error('Error refreshing Reddit access token:', error);
+    }
+};
 
 const main = async () => {
     try {
@@ -248,7 +248,7 @@ const main = async () => {
         );
         logger.info('Successfully authenticated with Reddit');
 
-        // setInterval(refreshAuthToken, config.security.tokenRefreshInterval);
+        setInterval(refreshAuthToken, config.security.tokenRefreshInterval);
 
         startScheduler();
     } catch (error) {
