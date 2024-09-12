@@ -12,7 +12,6 @@ import {
     optimizeContentForKeywords,
     generateMultilingualContent,
     scoreContent,
-    generateAIDisclaimer,
     generateHashtags,
     generateCallToAction
 } from './claude.js';
@@ -68,7 +67,10 @@ const findAndCommentOnPosts = async () => {
                         logger.info(`Commented on post: ${post.title}`);
 
                         await new Promise((resolve) =>
-                            setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+                            setTimeout(
+                                resolve,
+                                config.interactionLimits.minTimeBetweenComments * 1000
+                            )
                         );
                     });
                 }
@@ -86,7 +88,11 @@ const generateCreativePost = async (subreddit) => {
             const [title, ...textParts] = content.split('\n');
             const text = textParts.join('\n');
 
-            const optimizedText = await optimizeContentForKeywords(text, ['AutoCode', 'AI', 'coding']);
+            const optimizedText = await optimizeContentForKeywords(text, [
+                'AutoCode',
+                'AI',
+                'coding'
+            ]);
             const score = await scoreContent(optimizedText);
 
             if (score < config.contentScoring.minScore) {
@@ -94,11 +100,10 @@ const generateCreativePost = async (subreddit) => {
                 return generateCreativePost(subreddit);
             }
 
-            const disclaimer = await generateAIDisclaimer();
             const hashtags = await generateHashtags(optimizedText);
             const callToAction = await generateCallToAction('Reddit');
 
-            const fullText = `${optimizedText}\n\n${disclaimer}\n\n${hashtags}\n\n${callToAction}`;
+            const fullText = `${optimizedText}\n\n${hashtags}\n\n${callToAction}`;
 
             const post = await r.getSubreddit(subreddit).submitSelfpost({ title, text: fullText });
             logger.info(`Posted in r/${subreddit}`);
