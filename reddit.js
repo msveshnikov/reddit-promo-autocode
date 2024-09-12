@@ -57,7 +57,7 @@ const findAndCommentOnPosts = async () => {
             const posts = await r.getSubreddit(subreddit).getNew({ limit: 10 });
             for (const post of posts) {
                 if (
-                    config.aiCodingTools.some((tool) =>
+                    config.keywordsToTrack.some((tool) =>
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     )
                 ) {
@@ -66,7 +66,7 @@ const findAndCommentOnPosts = async () => {
                         continue;
                     }
 
-                    const toolMentioned = config.aiCodingTools.find((tool) =>
+                    const toolMentioned = config.keywordsToTrack.find((tool) =>
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     );
                     const comment = await generateRedditComment(post.title, toolMentioned);

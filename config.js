@@ -53,7 +53,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     },
     mainSubreddit: 'AutoCode',
     targetSubreddits: ['ClaudeAI', 'ChatGPTCoding', 'ArtificialIntelligence'],
-    aiCodingTools: ['Aider', 'Claude Dev', 'Cursor AI'],
+    keywordsToTrack: ['Aider', 'Claude Dev', 'Cursor AI'],
     postSchedule: {
         interval: 'daily',
         time: '12:00',
@@ -108,7 +108,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     claudeConfig: {
         model: 'claude-3-haiku-20240307',
         maxTokens: 150,
-        temperature: 0.7
+        temperature: 1.0
     },
     contentScoring: {
         enabled: true,
