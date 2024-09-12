@@ -1,5 +1,56 @@
-// config.js
 export default {
+    product: {
+        name: 'AutoCode',
+        description: `# AutoCode
+
+AutoCode is an innovative automatic coding tool designed to bootstrap any software project incrementally, transforming README.md instructions into a fully functional software project using Claude 3.5 Sonnet API. AutoCode was bootstrapped by itself from one simple prompt.
+
+![AutoCode Logo](image.png)
+
+## Features
+
+-   NodeJS-based console application
+-   Automatic code generation based on README.md instructions
+-   Utilizes Claude 3.5 Sonnet API for intelligent code generation
+-   Incremental project building
+-   Creates and modifies source files in the current folder and subfolders
+-   Self-updating README.md with new design ideas and considerations
+-   Code quality checks and suggestions/auto fixes
+-   Automatic dependency management and creation of missing files
+-   Adherence to DRY, KISS, and SRP principles
+-   Intelligent code analysis and refactoring suggestions
+-   Automated documentation generation
+-   User-friendly command-line interface
+-   Support for multiple programming languages
+-   AI-powered agents for specialized tasks
+-   Pricing tiers with license management
+-   Cross-platform compatibility (Windows, macOS, Linux)
+-   Syntax checking and auto-fixing
+
+## Installation
+
+No installation is required. AutoCode can be run directly using npx.
+
+## Usage
+
+1. Create CLAUDE_KEY environment variable (get your key here https://console.anthropic.com/settings/keys)
+2. Navigate to your project folder in the terminal.
+3. Run the following command:
+
+npx autocode-ai
+
+4. Follow the prompts and watch as your project comes to life!
+
+## How It Works
+
+AutoCode reads your README.md file and your sources and sends the instructions to the Claude 3.5 Sonnet API. The API interprets the instructions and generates the necessary code structure, files, and content. AutoCode then saves the generated code back to your project directory. It can now generate code for different languages based on the project requirements and applies language-specific linting and formatting.`,
+        advantages: [
+            'Fast and efficient code generation',
+            'Seamless integration with popular development environments',
+            'Advanced AI-powered code suggestions',
+            'Customizable to fit various coding styles and preferences'
+        ]
+    },
     mainSubreddit: 'AutoCode',
     targetSubreddits: ['ClaudeAI', 'ChatGPTCoding', 'ArtificialIntelligence'],
     aiCodingTools: ['Aider', 'Claude Dev', 'Cursor AI'],
@@ -22,7 +73,7 @@ export default {
     apiConfig: {
         baseUrl: 'https://oauth.reddit.com',
         version: 'v1',
-        userAgent: 'AutoCode Reddit Promo Agent v1.0.0'
+        userAgent: 'Reddit Promo Agent v1.0.0'
     },
     errorHandling: {
         maxRetries: 3,
@@ -31,7 +82,7 @@ export default {
     logging: {
         level: 'info',
         format: 'json',
-        filename: 'autocode.log'
+        filename: 'promo-agent.log'
     },
     analytics: {
         trackEngagement: true,

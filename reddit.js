@@ -8,9 +8,16 @@ import {
     generateRedditComment,
     analyzePostPerformance,
     generatePersonalizedContent,
-    handleUserInteraction
+    handleUserInteraction,
+    optimizeContentForKeywords,
+    generateMultilingualContent,
+    scoreContent,
+    generateAIDisclaimer,
+    generateHashtags,
+    generateCallToAction
 } from './claude.js';
 import NodeCache from 'node-cache';
+import { RateLimiter } from 'limiter';
 
 dotenv.config();
 
@@ -34,6 +41,16 @@ const r = new snoowrap({
     password: process.env.REDDIT_PASSWORD
 });
 
+const commentLimiter = new RateLimiter({
+    tokensPerInterval: config.interactionLimits.maxCommentsPerHour,
+    interval: 'hour'
+});
+
+const postLimiter = new RateLimiter({
+    tokensPerInterval: config.interactionLimits.maxPostsPerDay,
+    interval: 'day'
+});
+
 const findAndCommentOnPosts = async () => {
     try {
         for (const subreddit of config.targetSubreddits) {
@@ -44,12 +61,26 @@ const findAndCommentOnPosts = async () => {
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     )
                 ) {
+                    if (!(await commentLimiter.removeTokens(1))) {
+                        logger.info('Comment rate limit reached, skipping');
+                        continue;
+                    }
+
                     const toolMentioned = config.aiCodingTools.find((tool) =>
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     );
                     const comment = await generateRedditComment(post.title, toolMentioned);
-                    await post.reply(comment);
+                    const optimizedComment = await optimizeContentForKeywords(comment, [
+                        'AutoCode',
+                        'AI',
+                        'coding'
+                    ]);
+                    await post.reply(optimizedComment);
                     logger.info(`Commented on post: ${post.title}`);
+
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+                    );
                 }
             }
         }
@@ -60,11 +91,30 @@ const findAndCommentOnPosts = async () => {
 
 const generateCreativePost = async (subreddit) => {
     try {
+        if (!(await postLimiter.removeTokens(1))) {
+            logger.info('Post rate limit reached, skipping');
+            return;
+        }
+
         const content = await generateRedditPost(subreddit);
         const [title, ...textParts] = content.split('\n');
         const text = textParts.join('\n');
 
-        const post = await r.getSubreddit(subreddit).submitSelfpost({ title, text });
+        const optimizedText = await optimizeContentForKeywords(text, ['AutoCode', 'AI', 'coding']);
+        const score = await scoreContent(optimizedText);
+
+        if (score < config.contentScoring.minScore) {
+            logger.info(`Content score too low (${score}), regenerating`);
+            return generateCreativePost(subreddit);
+        }
+
+        const disclaimer = await generateAIDisclaimer();
+        const hashtags = await generateHashtags(optimizedText);
+        const callToAction = await generateCallToAction('Reddit');
+
+        const fullText = `${optimizedText}\n\n${disclaimer}\n\n${hashtags}\n\n${callToAction}`;
+
+        const post = await r.getSubreddit(subreddit).submitSelfpost({ title, text: fullText });
         logger.info(`Posted in r/${subreddit}`);
 
         if (config.analytics.trackPerformance) {
@@ -104,11 +154,29 @@ const generatePersonalizedPosts = async () => {
         for (const subreddit of config.targetSubreddits) {
             const keywords = await getSubredditKeywords(subreddit);
             const content = await generatePersonalizedContent(subreddit, keywords);
-            const [title, ...textParts] = content.split('\n');
+            const optimizedContent = await optimizeContentForKeywords(content, keywords);
+            const [title, ...textParts] = optimizedContent.split('\n');
             const text = textParts.join('\n');
 
-            await r.getSubreddit(subreddit).submitSelfpost({ title, text });
-            logger.info(`Posted personalized content in r/${subreddit}`);
+            if (config.internationalization.enabled) {
+                for (const language of config.internationalization.supportedLanguages) {
+                    const translatedContent = await generateMultilingualContent(
+                        optimizedContent,
+                        language
+                    );
+                    const [translatedTitle, ...translatedTextParts] = translatedContent.split('\n');
+                    const translatedText = translatedTextParts.join('\n');
+
+                    await r.getSubreddit(subreddit).submitSelfpost({
+                        title: translatedTitle,
+                        text: translatedText
+                    });
+                    logger.info(`Posted personalized content in r/${subreddit} (${language})`);
+                }
+            } else {
+                await r.getSubreddit(subreddit).submitSelfpost({ title, text });
+                logger.info(`Posted personalized content in r/${subreddit}`);
+            }
         }
     } catch (error) {
         logger.error('Error in generatePersonalizedPosts:', error);
@@ -169,6 +237,15 @@ const retryWithBackoff = async (fn, maxAttempts, initialDelay, backoffFactor) =>
     }
 };
 
+const refreshAuthToken = async () => {
+    try {
+        await r.refreshAccessToken();
+        logger.info('Successfully refreshed Reddit access token');
+    } catch (error) {
+        logger.error('Error refreshing Reddit access token:', error);
+    }
+};
+
 const main = async () => {
     try {
         await retryWithBackoff(
@@ -178,6 +255,9 @@ const main = async () => {
             config.retryMechanism.backoffFactor
         );
         logger.info('Successfully authenticated with Reddit');
+
+        setInterval(refreshAuthToken, config.security.tokenRefreshInterval);
+
         startScheduler();
     } catch (error) {
         logger.error('Error in main:', error);
