@@ -284,4 +284,5 @@ const main = async () => {
     }
 };
 
+await dailyTasks();
 main();

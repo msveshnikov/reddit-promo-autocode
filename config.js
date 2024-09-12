@@ -55,7 +55,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     targetSubreddits: [
         'ClaudeAI',
         'ChatGPTCoding',
-        'ArtificialIntelligence',
+        'ArtificialInteligence',
         'Bard',
         'OpenAI',
         'OnlyAICoding',
