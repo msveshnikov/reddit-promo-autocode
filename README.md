@@ -99,4 +99,4 @@ This project is licensed under the MIT License.
 
 # TODO
 
--   Fix {"level":"error","message":"Error in generatePersonalizedPosts: SUBMIT_VALIDATION_FLAIR_REQUIRED,Your post must contain post flair.,flair","stack":"Error: SUBMIT_VALIDATION_FLAIR_REQUIRED,Your post must contain post flair.,flair\n    
+-   Make logs non json, norma text

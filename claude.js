@@ -86,7 +86,7 @@ export const handleUserInteraction = async (userComment) => {
 export const optimizeContentForKeywords = async (content, keywords) => {
     const prompt = `Rewrite this content, naturally incorporating these keywords: ${keywords.join(
         ', '
-    )}. Keep the original meaning and tone:
+    )}. Keep the original meaning and tone. Return only new comment:
 
 ${content}`;
     return generateContent(prompt, { maxTokens: content.length + 100 });

@@ -57,11 +57,12 @@ AutoCode reads your README.md file and your sources and sends the instructions t
         'ChatGPTCoding',
         'ArtificialInteligence',
         'Bard',
-        'OpenAI',
+        // 'OpenAI',
         'OnlyAICoding',
         'LocalLLaMA'
     ],
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
+    keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
         interval: 'daily',
         time: '21:02'
@@ -113,7 +114,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     },
     plugins: [],
     claudeConfig: {
-        model: 'claude-3-haiku-20240307',
+        model: 'claude-3-5-sonnet-20240620',
         maxTokens: 250,
         temperature: 0.9
     },

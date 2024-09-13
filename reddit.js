@@ -11,9 +11,7 @@ import {
     handleUserInteraction,
     optimizeContentForKeywords,
     generateMultilingualContent,
-    scoreContent,
-    generateHashtags,
-    generateCallToAction
+    scoreContent
 } from './claude.js';
 import NodeCache from 'node-cache';
 import pLimit from 'p-limit';
@@ -58,11 +56,10 @@ const findAndCommentOnPosts = async () => {
                             post.title.toLowerCase().includes(tool.toLowerCase())
                         );
                         const comment = await generateRedditComment(post.title, toolMentioned);
-                        const optimizedComment = await optimizeContentForKeywords(comment, [
-                            'AutoCode',
-                            'AI',
-                            'coding'
-                        ]);
+                        const optimizedComment = await optimizeContentForKeywords(
+                            comment,
+                            config.keywordsToInject
+                        );
                         await post.reply(optimizedComment);
                         logger.info(`Commented on post: ${post.title}`);
 
@@ -100,14 +97,9 @@ const generateCreativePost = async (subreddit) => {
                 return generateCreativePost(subreddit);
             }
 
-            const hashtags = await generateHashtags(optimizedText);
-            const callToAction = await generateCallToAction('Reddit');
-
-            const fullText = `${optimizedText}\n\n${hashtags}\n\n${callToAction}`;
-
             const post = await r.getSubreddit(subreddit).submitSelfpost({
                 title,
-                text: fullText,
+                text: optimizedText,
                 flair_id: await getSubredditFlairId(subreddit)
             });
             logger.info(`Posted in r/${subreddit}`);
