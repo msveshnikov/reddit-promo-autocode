@@ -57,7 +57,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
         'ChatGPTCoding',
         'ArtificialInteligence',
         'Bard',
-        // 'OpenAI',
+        // 'OpenAI', // banned haha
         'OnlyAICoding',
         'LocalLLaMA'
     ],

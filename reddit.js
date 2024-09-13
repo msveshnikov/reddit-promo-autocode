@@ -11,7 +11,12 @@ import {
     handleUserInteraction,
     optimizeContentForKeywords,
     generateMultilingualContent,
-    scoreContent
+    scoreContent,
+    generateIndustryNews,
+    generateCodeSnippet,
+    generateComparison,
+    generateFAQ,
+    generateTestimonial
 } from './claude.js';
 import NodeCache from 'node-cache';
 import pLimit from 'p-limit';
@@ -20,7 +25,7 @@ dotenv.config();
 
 const logger = createLogger({
     level: config.logging.level,
-    format: format.combine(format.timestamp(), format[config.logging.format]()),
+    format: format.combine(format.timestamp(), format.simple()),
     transports: [
         new transports.Console(),
         new transports.File({ filename: 'error.log', level: 'error' }),
@@ -220,11 +225,47 @@ const getSubredditFlairId = async (subreddit) => {
     }
 };
 
+const generateSpecialContent = async () => {
+    try {
+        const industryNews = await generateIndustryNews();
+        const codeSnippet = await generateCodeSnippet('JavaScript', 'automating Reddit posts');
+        const comparison = await generateComparison('other Reddit bots');
+        const faq = await generateFAQ();
+        const testimonial = await generateTestimonial();
+
+        const specialContent = `
+${industryNews}
+
+${codeSnippet}
+
+${comparison}
+
+Frequently Asked Questions:
+${faq}
+
+User Testimonial:
+${testimonial}
+`;
+
+        await r.getSubreddit(config.mainSubreddit).submitSelfpost({
+            title: `${config.product.name} Weekly Update: Industry News, Tips, and More!`,
+            text: specialContent,
+            flair_id: await getSubredditFlairId(config.mainSubreddit)
+        });
+        logger.info(`Posted special content in r/${config.mainSubreddit}`);
+    } catch (error) {
+        logger.error('Error in generateSpecialContent:', error);
+    }
+};
+
 const dailyTasks = async () => {
     await findAndCommentOnPosts();
     await generateCreativePost(config.mainSubreddit);
     await generatePersonalizedPosts();
     await handleUserInteractions();
+    if (new Date().getDay() === 1) {
+        await generateSpecialContent();
+    }
 };
 
 const startScheduler = () => {
@@ -276,5 +317,5 @@ const main = async () => {
     }
 };
 
-await dailyTasks();
+// await dailyTasks();
 main();

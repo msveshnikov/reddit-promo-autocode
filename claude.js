@@ -10,7 +10,7 @@ const model = config.claudeConfig.model;
 
 const logger = createLogger({
     level: config.logging.level,
-    format: format.combine(format.timestamp(), format[config.logging.format]()),
+    format: format.combine(format.timestamp(), format.simple()),
     transports: [
         new transports.Console(),
         new transports.File({ filename: 'error.log', level: 'error' }),
