@@ -53,13 +53,14 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     },
     mainSubreddit: 'AutoCode',
     targetSubreddits: [
-        'ClaudeAI',
+        'saas',
+        'OnlyAICoding',
+        'LocalLLaMA',
         'ChatGPTCoding',
         'ArtificialInteligence',
         'Bard',
         // 'OpenAI', // banned haha
-        'OnlyAICoding',
-        'LocalLLaMA'
+        'ClaudeAI'
     ],
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     keywordsToInject: ['AutoCode', 'AI', 'coding'],
