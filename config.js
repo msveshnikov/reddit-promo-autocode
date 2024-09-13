@@ -54,6 +54,8 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     mainSubreddit: 'AutoCode',
     targetSubreddits: [
         'saas',
+        'SaaSMarketing',
+        'SideProject',
         'OnlyAICoding',
         'LocalLLaMA',
         'ChatGPTCoding',
@@ -65,11 +67,11 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
-        cron: '0 11 * * *'
+        cron: '0 0 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
-        maxPostsPerDay: 2,
+        maxPostsPerDay: 5,
         minTimeBetweenComments: 300
     },
     contentGeneration: {

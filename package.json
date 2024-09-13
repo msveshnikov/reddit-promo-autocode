@@ -8,6 +8,7 @@
         "start": "node reddit.js",
         "lint": "eslint .",
         "format": "prettier --write .",
+        "deploy": "deploy.cmd",
         "autocode": "npx autocode-ai"
     },
     "author": "",

@@ -40,6 +40,7 @@ Environment variables:
 -   `config.js`: Centralized configuration settings
 -   `package.json`: Project dependencies and scripts
 -
+
 ## Design Considerations
 
 1. Modular Architecture

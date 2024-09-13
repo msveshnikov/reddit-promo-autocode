@@ -2,7 +2,10 @@
 
 ## Overview
 
-`config.js` is a crucial configuration file for the AutoCode project. It exports a default object containing various settings and parameters that control the behavior of the application. This file plays a central role in defining the project's features, API interactions, content generation rules, and other operational aspects.
+`config.js` is a crucial configuration file for the AutoCode project. It exports a default object
+containing various settings and parameters that control the behavior of the application. This file
+plays a central role in defining the project's features, API interactions, content generation rules,
+and other operational aspects.
 
 ## File Structure
 
@@ -32,7 +35,8 @@ product: {
 }
 ```
 
-This section defines the product name, a detailed markdown description, and key advantages of AutoCode.
+This section defines the product name, a detailed markdown description, and key advantages of
+AutoCode.
 
 ### Reddit Settings
 
@@ -45,7 +49,8 @@ postSchedule: {...},
 interactionLimits: {...}
 ```
 
-These settings control the Reddit-specific behavior, including target subreddits, keywords for tracking and injection, posting schedule, and interaction limits.
+These settings control the Reddit-specific behavior, including target subreddits, keywords for
+tracking and injection, posting schedule, and interaction limits.
 
 ### Content Generation
 
@@ -153,14 +158,18 @@ When changes to the configuration are needed:
 3. Modify the values as required
 4. Save the file
 
-Note: Ensure that any changes made are consistent with the project's requirements and do not break existing functionality.
+Note: Ensure that any changes made are consistent with the project's requirements and do not break
+existing functionality.
 
 ## Integration with Other Files
 
-- `claude.js` likely uses the `claudeConfig` settings for AI interactions
-- `reddit.js` probably utilizes the Reddit-specific settings and API configuration
-- The root-level `.prettierrc` file may influence code formatting in this and other JavaScript files
+-   `claude.js` likely uses the `claudeConfig` settings for AI interactions
+-   `reddit.js` probably utilizes the Reddit-specific settings and API configuration
+-   The root-level `.prettierrc` file may influence code formatting in this and other JavaScript
+    files
 
 ## Conclusion
 
-`config.js` serves as the central configuration hub for the AutoCode project, allowing easy customization of various aspects of the application's behavior without modifying core logic in other files.
+`config.js` serves as the central configuration hub for the AutoCode project, allowing easy
+customization of various aspects of the application's behavior without modifying core logic in other
+files.

@@ -1,236 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoCode: Reddit Promo Agent</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #ff4500;
-            --secondary-color: #1a1a1a;
-            --text-color: #333;
-            --background-color: #f5f5f5;
-            --card-background: #fff;
-        }
-        body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background-color: var(--secondary-color);
-            color: #fff;
-            padding: 20px 0;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        h1, h2, h3 {
-            margin: 0;
-            line-height: 1.2;
-        }
-        h1 {
-            font-size: 2.5em;
-        }
-        .hero {
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 80px 0;
-            text-align: center;
-        }
-        .hero h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-        }
-        .hero p {
-            font-size: 1.2em;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .features {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin: 80px 0;
-        }
-        .feature {
-            flex-basis: calc(25% - 30px);
-            background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .feature:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-        }
-        .feature h3 {
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
-        .pricing {
-            background-color: #e5e5e5;
-            padding: 80px 0;
-        }
-        .pricing h2 {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .pricing-tiers {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-        .tier {
-            flex-basis: calc(33.33% - 30px);
-            background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 40px;
-            margin-bottom: 30px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            text-align: center;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-        .tier:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-        .tier h3 {
-            color: var(--primary-color);
-            font-size: 1.5em;
-            margin-bottom: 20px;
-        }
-        .tier p {
-            font-size: 2em;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        .tier ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        .tier li {
-            margin-bottom: 10px;
-        }
-        .cta {
-            text-align: center;
-            margin: 80px 0;
-        }
-        .btn {
-            display: inline-block;
-            background-color: var(--primary-color);
-            color: #fff;
-            padding: 15px 30px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.1em;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-        .btn:hover {
-            background-color: #e63e00;
-            transform: translateY(-2px);
-        }
-        @media (max-width: 768px) {
-            .feature, .tier {
-                flex-basis: calc(50% - 30px);
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AutoCode: Reddit Promo Agent</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --primary-color: #ff4500;
+                --secondary-color: #1a1a1a;
+                --text-color: #333;
+                --background-color: #f5f5f5;
+                --card-background: #fff;
             }
-        }
-        @media (max-width: 480px) {
-            .feature, .tier {
-                flex-basis: 100%;
+            body {
+                font-family: 'Roboto', sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: var(--background-color);
+                color: var(--text-color);
+                line-height: 1.6;
             }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1>AutoCode: Reddit Promo Agent</h1>
-        </div>
-    </header>
-    <main>
-        <section class="hero">
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 20px;
+            }
+            header {
+                background-color: var(--secondary-color);
+                color: #fff;
+                padding: 20px 0;
+                text-align: center;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            }
+            h1,
+            h2,
+            h3 {
+                margin: 0;
+                line-height: 1.2;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+            .hero {
+                background-color: var(--primary-color);
+                color: #fff;
+                padding: 80px 0;
+                text-align: center;
+            }
+            .hero h2 {
+                font-size: 2.5em;
+                margin-bottom: 20px;
+            }
+            .hero p {
+                font-size: 1.2em;
+                max-width: 600px;
+                margin: 0 auto;
+            }
+            .features {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                margin: 80px 0;
+            }
+            .feature {
+                flex-basis: calc(25% - 30px);
+                background-color: var(--card-background);
+                border-radius: 10px;
+                padding: 30px;
+                margin-bottom: 30px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .feature:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            .feature h3 {
+                color: var(--primary-color);
+                margin-bottom: 15px;
+            }
+            .pricing {
+                background-color: #e5e5e5;
+                padding: 80px 0;
+            }
+            .pricing h2 {
+                text-align: center;
+                margin-bottom: 40px;
+            }
+            .pricing-tiers {
+                display: flex;
+                justify-content: space-around;
+                flex-wrap: wrap;
+            }
+            .tier {
+                flex-basis: calc(33.33% - 30px);
+                background-color: var(--card-background);
+                border-radius: 10px;
+                padding: 40px;
+                margin-bottom: 30px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .tier:hover {
+                transform: scale(1.05);
+                box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+            }
+            .tier h3 {
+                color: var(--primary-color);
+                font-size: 1.5em;
+                margin-bottom: 20px;
+            }
+            .tier p {
+                font-size: 2em;
+                font-weight: bold;
+                margin-bottom: 20px;
+            }
+            .tier ul {
+                list-style-type: none;
+                padding: 0;
+            }
+            .tier li {
+                margin-bottom: 10px;
+            }
+            .cta {
+                text-align: center;
+                margin: 80px 0;
+            }
+            .btn {
+                display: inline-block;
+                background-color: var(--primary-color);
+                color: #fff;
+                padding: 15px 30px;
+                text-decoration: none;
+                border-radius: 5px;
+                font-weight: bold;
+                font-size: 1.1em;
+                transition: background-color 0.3s ease, transform 0.3s ease;
+            }
+            .btn:hover {
+                background-color: #e63e00;
+                transform: translateY(-2px);
+            }
+            @media (max-width: 768px) {
+                .feature,
+                .tier {
+                    flex-basis: calc(50% - 30px);
+                }
+            }
+            @media (max-width: 480px) {
+                .feature,
+                .tier {
+                    flex-basis: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
             <div class="container">
-                <h2>Boost Your Reddit Presence with AI-Powered Promotion</h2>
-                <p>Engage, Create, and Optimize Your Reddit Marketing Strategy with Advanced AI Technology</p>
+                <h1>AutoCode: Reddit Promo Agent</h1>
             </div>
-        </section>
-        <section class="features">
-            <div class="container">
-                <div class="feature">
-                    <h3>Intelligent Post Interaction</h3>
-                    <p>Engage with relevant posts automatically using AI-driven analysis</p>
+        </header>
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <h2>Boost Your Reddit Presence with AI-Powered Promotion</h2>
+                    <p>
+                        Engage, Create, and Optimize Your Reddit Marketing Strategy with Advanced AI
+                        Technology
+                    </p>
                 </div>
-                <div class="feature">
-                    <h3>AI Content Creation</h3>
-                    <p>Generate high-quality posts and comments with Claude Haiku integration</p>
-                </div>
-                <div class="feature">
-                    <h3>Smart Scheduling</h3>
-                    <p>Optimize posting times for maximum impact using machine learning algorithms</p>
-                </div>
-                <div class="feature">
-                    <h3>Advanced Analytics</h3>
-                    <p>Track performance and gain actionable insights with detailed reports</p>
-                </div>
-            </div>
-        </section>
-        <section class="pricing">
-            <div class="container">
-                <h2>Choose Your Plan</h2>
-                <div class="pricing-tiers">
-                    <div class="tier">
-                        <h3>Basic</h3>
-                        <p>$49/month</p>
-                        <ul>
-                            <li>1 Product Promotion</li>
-                            <li>5 Targeted Subreddits</li>
-                            <li>Daily AI-Generated Posts</li>
-                            <li>Basic Analytics</li>
-                        </ul>
+            </section>
+            <section class="features">
+                <div class="container">
+                    <div class="feature">
+                        <h3>Intelligent Post Interaction</h3>
+                        <p>Engage with relevant posts automatically using AI-driven analysis</p>
                     </div>
-                    <div class="tier">
-                        <h3>Pro</h3>
-                        <p>$99/month</p>
-                        <ul>
-                            <li>3 Product Promotions</li>
-                            <li>15 Targeted Subreddits</li>
-                            <li>Advanced Analytics Dashboard</li>
-                            <li>A/B Testing for Content</li>
-                            <li>Priority Support</li>
-                        </ul>
+                    <div class="feature">
+                        <h3>AI Content Creation</h3>
+                        <p>
+                            Generate high-quality posts and comments with Claude Haiku integration
+                        </p>
                     </div>
-                    <div class="tier">
-                        <h3>Enterprise</h3>
-                        <p>Contact Us</p>
-                        <ul>
-                            <li>Unlimited Product Promotions</li>
-                            <li>Custom Subreddit Targeting</li>
-                            <li>Advanced AI Integrations</li>
-                            <li>Dedicated Account Manager</li>
-                            <li>API Access for Custom Solutions</li>
-                        </ul>
+                    <div class="feature">
+                        <h3>Smart Scheduling</h3>
+                        <p>
+                            Optimize posting times for maximum impact using machine learning
+                            algorithms
+                        </p>
+                    </div>
+                    <div class="feature">
+                        <h3>Advanced Analytics</h3>
+                        <p>Track performance and gain actionable insights with detailed reports</p>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="cta">
-            <div class="container">
-                <h2>Ready to Revolutionize Your Reddit Marketing?</h2>
-                <a href="#" class="btn">Get Started Now</a>
-            </div>
-        </section>
-    </main>
-</body>
+            </section>
+            <section class="pricing">
+                <div class="container">
+                    <h2>Choose Your Plan</h2>
+                    <div class="pricing-tiers">
+                        <div class="tier">
+                            <h3>Basic</h3>
+                            <p>$49/month</p>
+                            <ul>
+                                <li>1 Product Promotion</li>
+                                <li>5 Targeted Subreddits</li>
+                                <li>Daily AI-Generated Posts</li>
+                                <li>Basic Analytics</li>
+                            </ul>
+                        </div>
+                        <div class="tier">
+                            <h3>Pro</h3>
+                            <p>$99/month</p>
+                            <ul>
+                                <li>3 Product Promotions</li>
+                                <li>15 Targeted Subreddits</li>
+                                <li>Advanced Analytics Dashboard</li>
+                                <li>A/B Testing for Content</li>
+                                <li>Priority Support</li>
+                            </ul>
+                        </div>
+                        <div class="tier">
+                            <h3>Enterprise</h3>
+                            <p>Contact Us</p>
+                            <ul>
+                                <li>Unlimited Product Promotions</li>
+                                <li>Custom Subreddit Targeting</li>
+                                <li>Advanced AI Integrations</li>
+                                <li>Dedicated Account Manager</li>
+                                <li>API Access for Custom Solutions</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="cta">
+                <div class="container">
+                    <h2>Ready to Revolutionize Your Reddit Marketing?</h2>
+                    <a href="#" class="btn">Get Started Now</a>
+                </div>
+            </section>
+        </main>
+    </body>
 </html>

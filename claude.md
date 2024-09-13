@@ -2,16 +2,20 @@
 
 ## Overview
 
-This file is a core component of a project that uses the Anthropic Claude AI model to generate various types of content, primarily focused on Reddit interactions and marketing for a product defined in the project's configuration. It provides a set of functions for generating and analyzing content, as well as handling user interactions.
+This file is a core component of a project that uses the Anthropic Claude AI model to generate
+various types of content, primarily focused on Reddit interactions and marketing for a product
+defined in the project's configuration. It provides a set of functions for generating and analyzing
+content, as well as handling user interactions.
 
-The file sets up the Anthropic client, configures logging, and exports several functions that leverage the Claude AI to perform specific tasks.
+The file sets up the Anthropic client, configures logging, and exports several functions that
+leverage the Claude AI to perform specific tasks.
 
 ## Dependencies
 
-- `@anthropic-ai/sdk`: Anthropic's SDK for interacting with Claude AI
-- `dotenv`: For loading environment variables
-- `winston`: For logging
-- `./config.js`: Local configuration file
+-   `@anthropic-ai/sdk`: Anthropic's SDK for interacting with Claude AI
+-   `dotenv`: For loading environment variables
+-   `winston`: For logging
+-   `./config.js`: Local configuration file
 
 ## Main Components
 
@@ -22,7 +26,8 @@ const anthropic = new Anthropic({ apiKey: process.env.CLAUDE_KEY });
 const model = config.claudeConfig.model;
 ```
 
-Initializes the Anthropic client with the API key from environment variables and sets the model from the configuration.
+Initializes the Anthropic client with the API key from environment variables and sets the model from
+the configuration.
 
 ### Logger Configuration
 
@@ -56,9 +61,9 @@ export const generateRedditPost = async (subreddit) => {
 
 Generates a Reddit post for a specific subreddit about the configured product.
 
-- Parameters:
-  - `subreddit`: String - The target subreddit
-- Returns: Promise<string> - The generated post content
+-   Parameters:
+    -   `subreddit`: String - The target subreddit
+-   Returns: Promise<string> - The generated post content
 
 ### generateRedditComment
 
@@ -70,10 +75,10 @@ export const generateRedditComment = async (postTitle, toolMentioned) => {
 
 Generates a Reddit comment in response to a post, mentioning the configured product.
 
-- Parameters:
-  - `postTitle`: String - The title of the post being commented on
-  - `toolMentioned`: String - The tool mentioned in the original post
-- Returns: Promise<string> - The generated comment
+-   Parameters:
+    -   `postTitle`: String - The title of the post being commented on
+    -   `toolMentioned`: String - The tool mentioned in the original post
+-   Returns: Promise<string> - The generated comment
 
 ### analyzePostPerformance
 
@@ -85,9 +90,9 @@ export const analyzePostPerformance = async (postData) => {
 
 Analyzes the performance of a Reddit post and suggests improvements.
 
-- Parameters:
-  - `postData`: Object - Contains post details (title, upvotes, commentCount, subreddit)
-- Returns: Promise<string> - Analysis and suggestions
+-   Parameters:
+    -   `postData`: Object - Contains post details (title, upvotes, commentCount, subreddit)
+-   Returns: Promise<string> - Analysis and suggestions
 
 ### generatePersonalizedContent
 
@@ -99,10 +104,10 @@ export const generatePersonalizedContent = async (subreddit, keywords) => {
 
 Generates personalized content for a subreddit using specified keywords.
 
-- Parameters:
-  - `subreddit`: String - Target subreddit
-  - `keywords`: Array<string> - Keywords to include in the content
-- Returns: Promise<string> - Personalized content
+-   Parameters:
+    -   `subreddit`: String - Target subreddit
+    -   `keywords`: Array<string> - Keywords to include in the content
+-   Returns: Promise<string> - Personalized content
 
 ### handleUserInteraction
 
@@ -114,9 +119,9 @@ export const handleUserInteraction = async (userComment) => {
 
 Generates a response to a user's comment about the product.
 
-- Parameters:
-  - `userComment`: String - The user's comment
-- Returns: Promise<string> - Generated response
+-   Parameters:
+    -   `userComment`: String - The user's comment
+-   Returns: Promise<string> - Generated response
 
 ### optimizeContentForKeywords
 
@@ -128,10 +133,10 @@ export const optimizeContentForKeywords = async (content, keywords) => {
 
 Rewrites content to incorporate specified keywords.
 
-- Parameters:
-  - `content`: String - Original content
-  - `keywords`: Array<string> - Keywords to incorporate
-- Returns: Promise<string> - Optimized content
+-   Parameters:
+    -   `content`: String - Original content
+    -   `keywords`: Array<string> - Keywords to incorporate
+-   Returns: Promise<string> - Optimized content
 
 ### generateMultilingualContent
 
@@ -143,10 +148,10 @@ export const generateMultilingualContent = async (content, targetLanguage) => {
 
 Translates and adapts content to a target language.
 
-- Parameters:
-  - `content`: String - Original content
-  - `targetLanguage`: String - Language to translate to
-- Returns: Promise<string> - Translated content
+-   Parameters:
+    -   `content`: String - Original content
+    -   `targetLanguage`: String - Language to translate to
+-   Returns: Promise<string> - Translated content
 
 ### generateContentSummary
 
@@ -158,9 +163,9 @@ export const generateContentSummary = async (content) => {
 
 Summarizes the main points of given content.
 
-- Parameters:
-  - `content`: String - Content to summarize
-- Returns: Promise<string> - Summary of the content
+-   Parameters:
+    -   `content`: String - Content to summarize
+-   Returns: Promise<string> - Summary of the content
 
 ### scoreContent
 
@@ -172,9 +177,9 @@ export const scoreContent = async (content) => {
 
 Rates content based on engagement, relevance, and persuasiveness.
 
-- Parameters:
-  - `content`: String - Content to score
-- Returns: Promise<number> - Score between 0 and 1
+-   Parameters:
+    -   `content`: String - Content to score
+-   Returns: Promise<number> - Score between 0 and 1
 
 ### generateHashtags
 
@@ -186,9 +191,9 @@ export const generateHashtags = async (content) => {
 
 Generates relevant hashtags for given content.
 
-- Parameters:
-  - `content`: String - Content to generate hashtags for
-- Returns: Promise<string> - Generated hashtags
+-   Parameters:
+    -   `content`: String - Content to generate hashtags for
+-   Returns: Promise<string> - Generated hashtags
 
 ### generateCallToAction
 
@@ -200,9 +205,9 @@ export const generateCallToAction = async (platform) => {
 
 Generates a call-to-action for the product on a specified platform.
 
-- Parameters:
-  - `platform`: String - Target platform
-- Returns: Promise<string> - Generated call-to-action
+-   Parameters:
+    -   `platform`: String - Target platform
+-   Returns: Promise<string> - Generated call-to-action
 
 ### generateIndustryNews
 
@@ -214,7 +219,7 @@ export const generateIndustryNews = async () => {
 
 Generates a summary of recent developments in AI coding tools.
 
-- Returns: Promise<string> - Generated industry news
+-   Returns: Promise<string> - Generated industry news
 
 ### generateCodeSnippet
 
@@ -226,10 +231,10 @@ export const generateCodeSnippet = async (language, task) => {
 
 Generates a code snippet demonstrating the product's capabilities.
 
-- Parameters:
-  - `language`: String - Programming language
-  - `task`: String - Task to demonstrate
-- Returns: Promise<string> - Generated code snippet with explanation
+-   Parameters:
+    -   `language`: String - Programming language
+    -   `task`: String - Task to demonstrate
+-   Returns: Promise<string> - Generated code snippet with explanation
 
 ### generateComparison
 
@@ -241,9 +246,9 @@ export const generateComparison = async (competitor) => {
 
 Generates a comparison between the product and a competitor.
 
-- Parameters:
-  - `competitor`: String - Name of the competitor
-- Returns: Promise<string> - Generated comparison
+-   Parameters:
+    -   `competitor`: String - Name of the competitor
+-   Returns: Promise<string> - Generated comparison
 
 ### generateFAQ
 
@@ -255,7 +260,7 @@ export const generateFAQ = async () => {
 
 Generates frequently asked questions and answers about the product.
 
-- Returns: Promise<string> - Generated FAQ
+-   Returns: Promise<string> - Generated FAQ
 
 ### generateTestimonial
 
@@ -267,7 +272,7 @@ export const generateTestimonial = async () => {
 
 Generates a realistic user testimonial for the product.
 
-- Returns: Promise<string> - Generated testimonial
+-   Returns: Promise<string> - Generated testimonial
 
 ## Usage Example
 
@@ -290,4 +295,6 @@ async function main() {
 main().catch(console.error);
 ```
 
-This file plays a crucial role in the project by providing AI-powered content generation and analysis capabilities, primarily focused on Reddit interactions and marketing strategies for the configured product.
+This file plays a crucial role in the project by providing AI-powered content generation and
+analysis capabilities, primarily focused on Reddit interactions and marketing strategies for the
+configured product.
