@@ -15,9 +15,9 @@
     "dependencies": {
         "@anthropic-ai/sdk": "^0.27.3",
         "dotenv": "^16.4.5",
+        "limiter": "2.0.1",
         "node-cache": "^5.1.2",
         "node-schedule": "^2.1.1",
-        "p-limit": "^4.0.0",
         "snoowrap": "^1.23.0",
         "winston": "^3.14.2"
     },

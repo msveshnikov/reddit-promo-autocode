@@ -19,7 +19,7 @@ import {
     generateTestimonial
 } from './claude.js';
 import NodeCache from 'node-cache';
-import pLimit from 'p-limit';
+import { RateLimiter } from 'limiter';
 
 dotenv.config();
 
@@ -35,6 +35,16 @@ const logger = createLogger({
 
 const cache = new NodeCache({ stdTTL: config.caching.ttl });
 
+const commentLimiter = new RateLimiter({
+    tokensPerInterval: config.interactionLimits.maxCommentsPerHour,
+    interval: 'hour'
+});
+
+const postLimiter = new RateLimiter({
+    tokensPerInterval: config.interactionLimits.maxPostsPerDay,
+    interval: 'day'
+});
+
 const r = new snoowrap({
     userAgent: config.apiConfig.userAgent,
     clientId: process.env.CLIENT_ID,
@@ -42,9 +52,6 @@ const r = new snoowrap({
     username: process.env.REDDIT_USERNAME,
     password: process.env.REDDIT_PASSWORD
 });
-
-const commentLimit = pLimit(config.interactionLimits.maxCommentsPerHour);
-const postLimit = pLimit(config.interactionLimits.maxPostsPerDay);
 
 const findAndCommentOnPosts = async () => {
     try {
@@ -56,25 +63,25 @@ const findAndCommentOnPosts = async () => {
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     )
                 ) {
-                    await commentLimit(async () => {
-                        const toolMentioned = config.keywordsToTrack.find((tool) =>
-                            post.title.toLowerCase().includes(tool.toLowerCase())
-                        );
-                        const comment = await generateRedditComment(post.title, toolMentioned);
-                        const optimizedComment = await optimizeContentForKeywords(
-                            comment,
-                            config.keywordsToInject
-                        );
-                        await post.reply(optimizedComment);
-                        logger.info(`Commented on post: ${post.title}`);
+                    if (!(await commentLimiter.removeTokens(1))) {
+                        logger.info('Comment rate limit reached, skipping');
+                        continue;
+                    }
 
-                        await new Promise((resolve) =>
-                            setTimeout(
-                                resolve,
-                                config.interactionLimits.minTimeBetweenComments * 1000
-                            )
-                        );
-                    });
+                    const toolMentioned = config.keywordsToTrack.find((tool) =>
+                        post.title.toLowerCase().includes(tool.toLowerCase())
+                    );
+                    const comment = await generateRedditComment(post.title, toolMentioned);
+                    const optimizedComment = await optimizeContentForKeywords(
+                        comment,
+                        config.keywordsToInject
+                    );
+                    await post.reply(optimizedComment);
+                    logger.info(`Commented on post: ${post.title}`);
+
+                    await new Promise((resolve) =>
+                        setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+                    );
                 }
             }
         }
@@ -85,43 +92,42 @@ const findAndCommentOnPosts = async () => {
 
 const generateCreativePost = async (subreddit) => {
     try {
-        await postLimit(async () => {
-            const content = await generateRedditPost(subreddit);
-            const [title, ...textParts] = content.split('\n');
-            const text = textParts.join('\n');
+        if (!(await postLimiter.removeTokens(1))) {
+            logger.info('Post rate limit reached, skipping');
+            return;
+        }
 
-            const optimizedText = await optimizeContentForKeywords(text, [
-                'AutoCode',
-                'AI',
-                'coding'
-            ]);
-            const score = await scoreContent(optimizedText);
+        const content = await generateRedditPost(subreddit);
+        const [title, ...textParts] = content.split('\n');
+        const text = textParts.join('\n');
 
-            if (score < config.contentScoring.minScore) {
-                logger.info(`Content score too low (${score}), regenerating`);
-                return generateCreativePost(subreddit);
-            }
+        const optimizedText = await optimizeContentForKeywords(text, ['AutoCode', 'AI', 'coding']);
+        const score = await scoreContent(optimizedText);
 
-            const post = await r.getSubreddit(subreddit).submitSelfpost({
-                title,
-                text: optimizedText,
-                flair_id: await getSubredditFlairId(subreddit)
-            });
-            logger.info(`Posted in r/${subreddit}`);
+        if (score < config.contentScoring.minScore) {
+            logger.info(`Content score too low (${score}), regenerating`);
+            return generateCreativePost(subreddit);
+        }
 
-            if (config.analytics.trackPerformance) {
-                scheduleJob('30 minutes', async () => {
-                    const updatedPost = await r.getSubmission(post.id).fetch();
-                    const analysis = await analyzePostPerformance({
-                        title: updatedPost.title,
-                        upvotes: updatedPost.ups,
-                        commentCount: updatedPost.num_comments,
-                        subreddit: updatedPost.subreddit.display_name
-                    });
-                    logger.info(`Post performance analysis: ${analysis}`);
-                });
-            }
+        const post = await r.getSubreddit(subreddit).submitSelfpost({
+            title,
+            text: optimizedText,
+            flair_id: await getSubredditFlairId(subreddit)
         });
+        logger.info(`Posted in r/${subreddit}`);
+
+        if (config.analytics.trackPerformance) {
+            scheduleJob('30 minutes', async () => {
+                const updatedPost = await r.getSubmission(post.id).fetch();
+                const analysis = await analyzePostPerformance({
+                    title: updatedPost.title,
+                    upvotes: updatedPost.ups,
+                    commentCount: updatedPost.num_comments,
+                    subreddit: updatedPost.subreddit.display_name
+                });
+                logger.info(`Post performance analysis: ${analysis}`);
+            });
+        }
     } catch (error) {
         logger.error(`Error posting in r/${subreddit}:`, error);
     }
@@ -145,6 +151,11 @@ const handleUserInteractions = async () => {
 const generatePersonalizedPosts = async () => {
     try {
         for (const subreddit of config.targetSubreddits) {
+            if (!(await postLimiter.removeTokens(1))) {
+                logger.info('Post rate limit reached, skipping');
+                return;
+            }
+
             const keywords = await getSubredditKeywords(subreddit);
             const content = await generatePersonalizedContent(subreddit, keywords);
             const optimizedContent = await optimizeContentForKeywords(content, keywords);
