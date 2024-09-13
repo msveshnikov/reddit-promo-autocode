@@ -269,7 +269,7 @@ const dailyTasks = async () => {
 };
 
 const startScheduler = () => {
-    scheduleJob(config.postSchedule.time, async () => {
+    scheduleJob('0 0 * * *', async () => {
         logger.info('Starting daily tasks');
         await dailyTasks();
         logger.info('Daily tasks completed');
@@ -317,5 +317,4 @@ const main = async () => {
     }
 };
 
-// await dailyTasks();
 main();

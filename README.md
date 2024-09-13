@@ -98,5 +98,3 @@ submitting pull requests.
 This project is licensed under the MIT License.
 
 # TODO
-
--   Make logs non json, norma text
