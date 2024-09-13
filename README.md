@@ -39,10 +39,7 @@ Environment variables:
 -   `claude.js`: Integration with Claude Haiku for content generation
 -   `config.js`: Centralized configuration settings
 -   `package.json`: Project dependencies and scripts
--   `.prettierrc`: Prettier configuration for consistent code formatting
--   `landing_page_copy.html`: Template for generating product landing pages
--   `docs/social_media_content.json`: JSON file for managing social media content
-
+-
 ## Design Considerations
 
 1. Modular Architecture
@@ -100,10 +97,8 @@ Environment variables:
 2. Install dependencies: `npm install`
 3. Set up Reddit API credentials and Claude Haiku key in `.env` file
 4. Configure product details and target subreddits in `config.js`
-5. Customize landing page template in `landing_page_copy.html`
-6. Update social media content in `docs/social_media_content.json`
-7. Run the script: `npm start`
-8. To persist run `pm2 start reddit.js`
+5. Run the script: `npm start`
+6. To persist run `pm2 start reddit.js`
 
 ## Contributing
 
