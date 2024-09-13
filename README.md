@@ -87,6 +87,7 @@ Environment variables:
 3. Set up Reddit API credentials and Claude Haiku key in `.env` file
 4. Configure product details and target subreddits in `config.js`
 5. Run the script: `npm start`
+6. To persist run `pm2 start reddit.js`
 
 ## Contributing
 
