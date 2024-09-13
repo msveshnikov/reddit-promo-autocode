@@ -20,8 +20,15 @@ import {
 } from './claude.js';
 import NodeCache from 'node-cache';
 import { RateLimiter } from 'limiter';
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { app } from './dashboard.js';
 
 dotenv.config();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const logger = createLogger({
     level: config.logging.level,
@@ -72,12 +79,10 @@ const findAndCommentOnPosts = async () => {
                         post.title.toLowerCase().includes(tool.toLowerCase())
                     );
                     const comment = await generateRedditComment(post.title, toolMentioned);
-                    const optimizedComment = await optimizeContentForKeywords(
-                        comment,
-                        config.keywordsToInject
-                    );
-                    await post.reply(optimizedComment);
+                    await post.reply(comment);
                     logger.info(`Commented on post: ${post.title}`);
+
+                    await saveStats({ comments: { [post.id]: { title: post.title, subreddit } } });
 
                     await new Promise((resolve) =>
                         setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
@@ -116,6 +121,8 @@ const generateCreativePost = async (subreddit) => {
         });
         logger.info(`Posted in r/${subreddit}`);
 
+        await saveStats({ posts: { [post.id]: { title, subreddit } } });
+
         if (config.analytics.trackPerformance) {
             scheduleJob('30 minutes', async () => {
                 const updatedPost = await r.getSubmission(post.id).fetch();
@@ -126,6 +133,11 @@ const generateCreativePost = async (subreddit) => {
                     subreddit: updatedPost.subreddit.display_name
                 });
                 logger.info(`Post performance analysis: ${analysis}`);
+                await saveStats({
+                    postPerformance: {
+                        [post.id]: { upvotes: updatedPost.ups, comments: updatedPost.num_comments }
+                    }
+                });
             });
         }
     } catch (error) {
@@ -142,6 +154,11 @@ const handleUserInteractions = async () => {
             await item.reply(response);
             await item.markAsRead();
             logger.info(`Responded to user interaction: ${item.id}`);
+            await saveStats({
+                interactions: {
+                    [item.id]: { type: item.type, subreddit: item.subreddit.display_name }
+                }
+            });
         }
     } catch (error) {
         logger.error('Error in handleUserInteractions:', error);
@@ -171,20 +188,24 @@ const generatePersonalizedPosts = async () => {
                     const [translatedTitle, ...translatedTextParts] = translatedContent.split('\n');
                     const translatedText = translatedTextParts.join('\n');
 
-                    await r.getSubreddit(subreddit).submitSelfpost({
+                    const post = await r.getSubreddit(subreddit).submitSelfpost({
                         title: translatedTitle,
                         text: translatedText,
                         flair_id: await getSubredditFlairId(subreddit)
                     });
                     logger.info(`Posted personalized content in r/${subreddit} (${language})`);
+                    await saveStats({
+                        posts: { [post.id]: { title: translatedTitle, subreddit, language } }
+                    });
                 }
             } else {
-                await r.getSubreddit(subreddit).submitSelfpost({
+                const post = await r.getSubreddit(subreddit).submitSelfpost({
                     title,
                     text,
                     flair_id: await getSubredditFlairId(subreddit)
                 });
                 logger.info(`Posted personalized content in r/${subreddit}`);
+                await saveStats({ posts: { [post.id]: { title, subreddit } } });
             }
         }
     } catch (error) {
@@ -258,12 +279,15 @@ User Testimonial:
 ${testimonial}
 `;
 
-        await r.getSubreddit(config.mainSubreddit).submitSelfpost({
+        const post = await r.getSubreddit(config.mainSubreddit).submitSelfpost({
             title: `${config.product.name} Weekly Update: Industry News, Tips, and More!`,
             text: specialContent,
             flair_id: await getSubredditFlairId(config.mainSubreddit)
         });
         logger.info(`Posted special content in r/${config.mainSubreddit}`);
+        await saveStats({
+            specialPosts: { [post.id]: { title: post.title, subreddit: config.mainSubreddit } }
+        });
     } catch (error) {
         logger.error('Error in generateSpecialContent:', error);
     }
@@ -280,7 +304,7 @@ const dailyTasks = async () => {
 };
 
 const startScheduler = () => {
-    scheduleJob('0 11 * * *', async () => {
+    scheduleJob(config.postSchedule.cron, async () => {
         logger.info('Starting daily tasks');
         await dailyTasks();
         logger.info('Daily tasks completed');
@@ -310,6 +334,29 @@ const refreshAuthToken = async () => {
     }
 };
 
+const saveStats = async (newStats) => {
+    try {
+        const currentStats = await loadStats();
+        const updatedStats = { ...currentStats, ...newStats };
+        await fs.writeFile(
+            path.join(__dirname, 'stats.json'),
+            JSON.stringify(updatedStats, null, 2)
+        );
+    } catch (error) {
+        logger.error('Error saving stats:', error);
+    }
+};
+
+const loadStats = async () => {
+    try {
+        const data = await fs.readFile(path.join(__dirname, 'stats.json'), 'utf8');
+        return JSON.parse(data);
+    } catch (error) {
+        logger.error('Error loading stats:', error);
+        return {};
+    }
+};
+
 const main = async () => {
     try {
         await retryWithBackoff(
@@ -329,3 +376,4 @@ const main = async () => {
 };
 
 main();
+app;

@@ -108,3 +108,9 @@ submitting pull requests.
 ## License
 
 This project is licensed under the MIT License.
+
+# TODO
+
+-   save posts and comment stats to json db in reddit.js
+-   dashboard code in dashboard.js
+-   frontend in index.html

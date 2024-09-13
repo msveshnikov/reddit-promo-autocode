@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AutoCode: Reddit Promo Agent Dashboard</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body class="bg-gray-100">
+        <div class="container mx-auto px-4 py-8">
+            <h1 class="text-3xl font-bold mb-8">AutoCode: Reddit Promo Agent Dashboard</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Statistics</h2>
+                    <div id="statsContainer"></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-xl font-semibold mb-4">Configuration</h2>
+                    <div id="configContainer"></div>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2">
+                    <h2 class="text-xl font-semibold mb-4">Performance Chart</h2>
+                    <canvas id="performanceChart"></canvas>
+                </div>
+
+                <div class="bg-white p-6 rounded-lg shadow-md col-span-1 md:col-span-2">
+                    <h2 class="text-xl font-semibold mb-4">Recent Logs</h2>
+                    <pre
+                        id="logsContainer"
+                        class="bg-gray-100 p-4 rounded-lg overflow-auto h-64"
+                    ></pre>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            async function fetchData(endpoint) {
+                const response = await fetch(`/api/${endpoint}`);
+                return response.json();
+            }
+
+            function displayStats(stats) {
+                const container = document.getElementById('statsContainer');
+                container.innerHTML = `
+                <p><strong>Total Posts:</strong> ${stats.totalPosts}</p>
+                <p><strong>Total Comments:</strong> ${stats.totalComments}</p>
+                <p><strong>Total Upvotes:</strong> ${stats.totalUpvotes}</p>
+                <p><strong>Average Score:</strong> ${stats.averageScore.toFixed(2)}</p>
+            `;
+            }
+
+            function displayConfig(config) {
+                const container = document.getElementById('configContainer');
+                container.innerHTML = `
+                <p><strong>Target Subreddits:</strong> ${config.targetSubreddits.join(', ')}</p>
+                <p><strong>Main Subreddit:</strong> ${config.mainSubreddit}</p>
+                <p><strong>Product:</strong> ${config.product.name}</p>
+            `;
+            }
+
+            function displayChart(stats) {
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: stats.dates,
+                        datasets: [
+                            {
+                                label: 'Posts',
+                                data: stats.posts,
+                                borderColor: 'rgb(75, 192, 192)',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Comments',
+                                data: stats.comments,
+                                borderColor: 'rgb(255, 99, 132)',
+                                tension: 0.1
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            function displayLogs(logs) {
+                const container = document.getElementById('logsContainer');
+                container.textContent = logs;
+            }
+
+            async function updateDashboard() {
+                try {
+                    const [stats, config, logs] = await Promise.all([
+                        fetchData('stats'),
+                        fetchData('config'),
+                        fetchData('logs')
+                    ]);
+
+                    displayStats(stats);
+                    displayConfig(config);
+                    displayChart(stats);
+                    displayLogs(logs);
+                } catch (error) {
+                    console.error('Error updating dashboard:', error);
+                }
+            }
+
+            updateDashboard();
+            setInterval(updateDashboard, 60000);
+        </script>
+    </body>
+</html>
