@@ -206,6 +206,9 @@ const generatePersonalizedPosts = async () => {
                 });
                 logger.info(`Posted personalized content in r/${subreddit}`);
                 await saveStats({ posts: { [post.id]: { title, subreddit } } });
+                await new Promise((resolve) =>
+                    setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+                );
             }
         }
     } catch (error) {
@@ -327,7 +330,6 @@ const retryWithBackoff = async (fn, maxAttempts, initialDelay, backoffFactor) =>
 
 const refreshAuthToken = async () => {
     try {
-        // await r.refreshToken();
         logger.info('Successfully refreshed Reddit access token');
     } catch (error) {
         logger.error('Error refreshing Reddit access token:', error);

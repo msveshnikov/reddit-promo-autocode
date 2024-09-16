@@ -51,28 +51,27 @@ AutoCode reads your README.md file and your sources and sends the instructions t
             'Customizable to fit various coding styles and preferences'
         ]
     },
-    mainSubreddit: 'AutoCode',
+    mainSubreddit: 'SaaSMarketing',
     targetSubreddits: [
         'saas',
-        'SaaSMarketing',
+        'ClaudeAI',
+        'ArtificialInteligence',
         'SideProject',
         'OnlyAICoding',
         'LocalLLaMA',
         'ChatGPTCoding',
-        'ArtificialInteligence',
         'Bard',
-        // 'OpenAI', // banned haha
-        'ClaudeAI'
+        // 'OpenAI', 
     ],
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
-        cron: '0 0 * * *'
+        cron: '0 9 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
         maxPostsPerDay: 5,
-        minTimeBetweenComments: 300
+        minTimeBetweenComments: 600
     },
     contentGeneration: {
         minLength: 100,
@@ -83,7 +82,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     apiConfig: {
         baseUrl: 'https://oauth.reddit.com',
         version: 'v1',
-        userAgent: 'Reddit Promo Agent v1.0.0'
+        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
     },
     errorHandling: {
         maxRetries: 3,

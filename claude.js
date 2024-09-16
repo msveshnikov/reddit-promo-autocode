@@ -54,7 +54,7 @@ export const generateRedditPost = async (subreddit) => {
 };
 
 export const generateRedditComment = async (postTitle, toolMentioned) => {
-    const prompt = `Write a Reddit comment for a post titled "${postTitle}" that mentions ${toolMentioned}. Casually bring up ${config.product.name} as an alternative you've been using. Keep it concise and relevant to the original post. Make it sound like a genuine user comment.`;
+    const prompt = `Write a Reddit comment for a post titled "${postTitle}" that mentions ${toolMentioned}. Casually bring up ${config.product.name} as an alternative you've been using. Keep it concise and relevant to the original post. Make it sound like a genuine user comment. Just comment text please!!`;
     return generateContent(prompt, { maxTokens: 150 });
 };
 
@@ -79,7 +79,7 @@ export const generatePersonalizedContent = async (subreddit, keywords) => {
 };
 
 export const handleUserInteraction = async (userComment) => {
-    const prompt = `Respond to this comment about ${config.product.name}: "${userComment}". Write a helpful and friendly response addressing their points. Sound like a real user, not a company representative.`;
+    const prompt = `Respond to this comment about ${config.product.name}: "${userComment}". Write a helpful and friendly response addressing their points. Sound like a real user, not a company representative. Just comment text please!!`;
     return generateContent(prompt, { maxTokens: 200 });
 };
 
