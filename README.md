@@ -16,8 +16,8 @@ posts.
 
 Environment variables:
 
--   CLIENT_ID
--   CLIENT_SECRET
+-   CLIENT_ID - https://old.reddit.com/prefs/apps/
+-   CLIENT_SECRET- https://old.reddit.com/prefs/apps/
 -   REDDIT_USERNAME
 -   REDDIT_PASSWORD
 -   CLAUDE_KEY
