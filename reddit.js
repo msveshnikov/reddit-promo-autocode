@@ -62,32 +62,31 @@ const r = new snoowrap({
 
 const findAndCommentOnPosts = async () => {
     try {
-        for (const subreddit of config.targetSubreddits) {
-            const posts = await r.getSubreddit(subreddit).getNew({ limit: 10 });
-            for (const post of posts) {
-                if (
-                    config.keywordsToTrack.some((tool) =>
-                        post.title.toLowerCase().includes(tool.toLowerCase())
-                    )
-                ) {
-                    if (!(await commentLimiter.removeTokens(1))) {
-                        logger.info('Comment rate limit reached, skipping');
-                        continue;
-                    }
-
-                    const toolMentioned = config.keywordsToTrack.find((tool) =>
-                        post.title.toLowerCase().includes(tool.toLowerCase())
-                    );
-                    const comment = await generateRedditComment(post.title, toolMentioned);
-                    await post.reply(comment);
-                    logger.info(`Commented on post: ${post.title}`);
-
-                    await saveStats({ comments: { [post.id]: { title: post.title, subreddit } } });
-
-                    await new Promise((resolve) =>
-                        setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
-                    );
+        const subreddit = getRandomSubreddit();
+        const posts = await r.getSubreddit(subreddit).getNew({ limit: 10 });
+        for (const post of posts) {
+            if (
+                config.keywordsToTrack.some((tool) =>
+                    post.title.toLowerCase().includes(tool.toLowerCase())
+                )
+            ) {
+                if (!(await commentLimiter.removeTokens(1))) {
+                    logger.info('Comment rate limit reached, skipping');
+                    continue;
                 }
+
+                const toolMentioned = config.keywordsToTrack.find((tool) =>
+                    post.title.toLowerCase().includes(tool.toLowerCase())
+                );
+                const comment = await generateRedditComment(post.title, toolMentioned);
+                await post.reply(comment);
+                logger.info(`Commented on post: ${post.title}`);
+
+                await saveStats({ comments: { [post.id]: { title: post.title, subreddit } } });
+
+                await new Promise((resolve) =>
+                    setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+                );
             }
         }
     } catch (error) {
@@ -95,7 +94,8 @@ const findAndCommentOnPosts = async () => {
     }
 };
 
-const generateCreativePost = async (subreddit) => {
+const generateCreativePost = async () => {
+    const subreddit = getRandomSubreddit();
     try {
         if (!(await postLimiter.removeTokens(1))) {
             logger.info('Post rate limit reached, skipping');
@@ -111,7 +111,7 @@ const generateCreativePost = async (subreddit) => {
 
         if (score < config.contentScoring.minScore) {
             logger.info(`Content score too low (${score}), regenerating`);
-            return generateCreativePost(subreddit);
+            return generateCreativePost();
         }
 
         const post = await r.getSubreddit(subreddit).submitSelfpost({
@@ -167,49 +167,44 @@ const handleUserInteractions = async () => {
 
 const generatePersonalizedPosts = async () => {
     try {
-        for (const subreddit of config.targetSubreddits) {
-            if (!(await postLimiter.removeTokens(1))) {
-                logger.info('Post rate limit reached, skipping');
-                return;
-            }
+        const subreddit = getRandomSubreddit();
+        if (!(await postLimiter.removeTokens(1))) {
+            logger.info('Post rate limit reached, skipping');
+            return;
+        }
 
-            const keywords = await getSubredditKeywords(subreddit);
-            const content = await generatePersonalizedContent(subreddit, keywords);
-            const optimizedContent = await optimizeContentForKeywords(content, keywords);
-            const [title, ...textParts] = optimizedContent.split('\n');
-            const text = textParts.join('\n');
+        const keywords = await getSubredditKeywords(subreddit);
+        const content = await generatePersonalizedContent(subreddit, keywords);
+        const optimizedContent = await optimizeContentForKeywords(content, keywords);
+        const [title, ...textParts] = optimizedContent.split('\n');
+        const text = textParts.join('\n');
 
-            if (config.internationalization.enabled) {
-                for (const language of config.internationalization.supportedLanguages) {
-                    const translatedContent = await generateMultilingualContent(
-                        optimizedContent,
-                        language
-                    );
-                    const [translatedTitle, ...translatedTextParts] = translatedContent.split('\n');
-                    const translatedText = translatedTextParts.join('\n');
+        if (config.internationalization.enabled) {
+            const language = getRandomLanguage();
+            const translatedContent = await generateMultilingualContent(optimizedContent, language);
+            const [translatedTitle, ...translatedTextParts] = translatedContent.split('\n');
+            const translatedText = translatedTextParts.join('\n');
 
-                    const post = await r.getSubreddit(subreddit).submitSelfpost({
-                        title: translatedTitle,
-                        text: translatedText,
-                        flair_id: await getSubredditFlairId(subreddit)
-                    });
-                    logger.info(`Posted personalized content in r/${subreddit} (${language})`);
-                    await saveStats({
-                        posts: { [post.id]: { title: translatedTitle, subreddit, language } }
-                    });
-                }
-            } else {
-                const post = await r.getSubreddit(subreddit).submitSelfpost({
-                    title,
-                    text,
-                    flair_id: await getSubredditFlairId(subreddit)
-                });
-                logger.info(`Posted personalized content in r/${subreddit}`);
-                await saveStats({ posts: { [post.id]: { title, subreddit } } });
-                await new Promise((resolve) =>
-                    setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
-                );
-            }
+            const post = await r.getSubreddit(subreddit).submitSelfpost({
+                title: translatedTitle,
+                text: translatedText,
+                flair_id: await getSubredditFlairId(subreddit)
+            });
+            logger.info(`Posted personalized content in r/${subreddit} (${language})`);
+            await saveStats({
+                posts: { [post.id]: { title: translatedTitle, subreddit, language } }
+            });
+        } else {
+            const post = await r.getSubreddit(subreddit).submitSelfpost({
+                title,
+                text,
+                flair_id: await getSubredditFlairId(subreddit)
+            });
+            logger.info(`Posted personalized content in r/${subreddit}`);
+            await saveStats({ posts: { [post.id]: { title, subreddit } } });
+            await new Promise((resolve) =>
+                setTimeout(resolve, config.interactionLimits.minTimeBetweenComments * 1000)
+            );
         }
     } catch (error) {
         logger.error('Error in generatePersonalizedPosts:', error);
@@ -282,14 +277,15 @@ User Testimonial:
 ${testimonial}
 `;
 
-        const post = await r.getSubreddit(config.mainSubreddit).submitSelfpost({
+        const subreddit = getRandomSubreddit();
+        const post = await r.getSubreddit(subreddit).submitSelfpost({
             title: `${config.product.name} Weekly Update: Industry News, Tips, and More!`,
             text: specialContent,
-            flair_id: await getSubredditFlairId(config.mainSubreddit)
+            flair_id: await getSubredditFlairId(subreddit)
         });
-        logger.info(`Posted special content in r/${config.mainSubreddit}`);
+        logger.info(`Posted special content in r/${subreddit}`);
         await saveStats({
-            specialPosts: { [post.id]: { title: post.title, subreddit: config.mainSubreddit } }
+            specialPosts: { [post.id]: { title: post.title, subreddit } }
         });
     } catch (error) {
         logger.error('Error in generateSpecialContent:', error);
@@ -298,7 +294,7 @@ ${testimonial}
 
 const dailyTasks = async () => {
     await findAndCommentOnPosts();
-    await generateCreativePost(config.mainSubreddit);
+    await generateCreativePost();
     await generatePersonalizedPosts();
     await handleUserInteractions();
     if (new Date().getDay() === 1) {
@@ -357,6 +353,16 @@ const loadStats = async () => {
         logger.error('Error loading stats:', error);
         return {};
     }
+};
+
+const getRandomSubreddit = () => {
+    return config.targetSubreddits[Math.floor(Math.random() * config.targetSubreddits.length)];
+};
+
+const getRandomLanguage = () => {
+    return config.internationalization.supportedLanguages[
+        Math.floor(Math.random() * config.internationalization.supportedLanguages.length)
+    ];
 };
 
 const main = async () => {

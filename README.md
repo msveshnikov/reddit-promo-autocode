@@ -89,3 +89,4 @@ This project is licensed under the MIT License.
 
 # TODO
 
+-   always select random subreddit and comment for posting/answering
