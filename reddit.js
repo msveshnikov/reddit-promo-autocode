@@ -152,7 +152,7 @@ const handleUserInteractions = async () => {
             if (!item.new) continue;
             const response = await handleUserInteraction(item.body);
             await item.reply(response);
-            await item.markAsRead();
+            // await item.markAsRead();
             logger.info(`Responded to user interaction: ${item.id}`);
             await saveStats({
                 interactions: {

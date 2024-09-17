@@ -5,7 +5,7 @@ export default {
 
 AutoCode is an innovative automatic coding tool designed to bootstrap any software project incrementally, transforming README.md instructions into a fully functional software project using Claude 3.5 Sonnet API. AutoCode was bootstrapped by itself from one simple prompt.
 
-![AutoCode Logo](image.png)
+https://autocode.work/
 
 ## Features
 
@@ -60,13 +60,12 @@ AutoCode reads your README.md file and your sources and sends the instructions t
         'OnlyAICoding',
         'LocalLLaMA',
         'ChatGPTCoding',
-        'Bard',
-        // 'OpenAI', 
+        'Bard'
     ],
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
-        cron: '0 9 * * *'
+        cron: '0 7 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
@@ -82,7 +81,8 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     apiConfig: {
         baseUrl: 'https://oauth.reddit.com',
         version: 'v1',
-        userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+        userAgent:
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
     },
     errorHandling: {
         maxRetries: 3,
