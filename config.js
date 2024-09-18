@@ -99,7 +99,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
         dashboardUrl: 'http://localhost:3000/dashboard'
     },
     security: {
-        tokenRefreshInterval: 3600000
+        tokenRefreshInterval: 1003600000
     },
     features: {
         postInteraction: true,

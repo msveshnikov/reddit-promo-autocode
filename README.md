@@ -12,7 +12,7 @@ posts.
 -   Create daily posts in relevant subreddits
 -   Focus on product-specific subreddit as the main target
 -   Track specified subreddits
--   Use Claude Haiku to create posts and comments
+-   Use Claude Sonnet to create posts and comments
 
 Environment variables:
 
@@ -43,31 +43,21 @@ Environment variables:
 
 ## Design Considerations
 
-1. Modular Architecture
-2. Rate Limiting
-3. Error Handling
-4. Content Personalization
-5. Analytics
-6. Authentication
-7. Scalability
-8. Testing
-9. Logging
-10. AI-Driven Content Optimization
-11. Ethical Considerations
-12. Security
-13. Dynamic Product Configuration
-14. Multi-Product Support
-15. Content Template System
-16. Automated Competitor Analysis
-17. User Profiling
-18. Community Engagement Metrics
-19. Adaptive Posting Strategy
-20. Compliance Management
-21. Landing Page Optimization
-22. Cross-Platform Content Synchronization
-23. A/B Testing for Content Performance
-24. SEO Optimization for Landing Pages
-25. Social Media Integration
+1. Content Personalization
+2. Analytics
+3. Logging
+4. AI-Driven Content Optimization
+5. Ethical Considerations
+6. Multi-Product Support
+7. Content Template System
+8. Automated Competitor Analysis
+9. User Profiling
+10. Community Engagement Metrics
+11. Adaptive Posting Strategy
+12. Compliance Management
+13. Cross-Platform Content Synchronization
+14. A/B Testing for Content Performance
+15. Social Media Integration
 
 ## Getting Started
 
@@ -88,5 +78,3 @@ submitting pull requests.
 This project is licensed under the MIT License.
 
 # TODO
-
--   always select random subreddit and comment for posting/answering
