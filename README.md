@@ -32,6 +32,9 @@ Environment variables:
 6. Configuration Management
 7. Landing Page Generation
 8. Social Media Content Management
+9. Dashboard for Analytics
+10. Public-facing Website
+11. Documentation Management
 
 ## Project Structure
 
@@ -39,25 +42,33 @@ Environment variables:
 -   `claude.js`: Integration with Claude Haiku for content generation
 -   `config.js`: Centralized configuration settings
 -   `package.json`: Project dependencies and scripts
--
+-   `dashboard.js`: Analytics and performance tracking
+-   `landing.html`: Landing page template
+-   `public/index.html`: Public-facing website
+-   `docs/social_media_content.json`: Social media content templates
 
 ## Design Considerations
 
 1. Content Personalization
-2. Analytics
-3. Logging
+2. Analytics and Performance Tracking
+3. Logging and Error Handling
 4. AI-Driven Content Optimization
-5. Ethical Considerations
+5. Ethical Considerations and Compliance
 6. Multi-Product Support
 7. Content Template System
 8. Automated Competitor Analysis
-9. User Profiling
+9. User Profiling and Segmentation
 10. Community Engagement Metrics
 11. Adaptive Posting Strategy
-12. Compliance Management
-13. Cross-Platform Content Synchronization
-14. A/B Testing for Content Performance
-15. Social Media Integration
+12. Cross-Platform Content Synchronization
+13. A/B Testing for Content Performance
+14. Social Media Integration
+15. Real-time Monitoring and Alerts
+16. Scalability and Performance Optimization
+17. Data Privacy and Security
+18. Internationalization and Localization
+19. API Rate Limiting and Throttling
+20. Continuous Integration and Deployment
 
 ## Getting Started
 
@@ -67,6 +78,8 @@ Environment variables:
 4. Configure product details and target subreddits in `config.js`
 5. Run the script: `npm start`
 6. To persist run `pm2 start reddit.js`
+7. Access the dashboard at `http://localhost:3000/dashboard`
+8. View the public website at `http://localhost:3000`
 
 ## Contributing
 
@@ -77,4 +90,15 @@ submitting pull requests.
 
 This project is licensed under the MIT License.
 
-# TODO
+## TODO
+
+-   Implement user authentication for the dashboard
+-   Enhance error handling and logging
+-   Develop more advanced analytics features
+-   Create a mobile-responsive design for the public website
+-   Implement automated testing for core functionality
+-   Optimize database queries for improved performance
+-   Develop a plugin system for easy feature extensions
+-   Create a user guide and API documentation
+-   Implement a caching layer for frequently accessed data
+-   Set up continuous integration and automated deployments
