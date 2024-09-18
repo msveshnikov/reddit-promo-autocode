@@ -130,7 +130,7 @@ const generateCreativePost = async () => {
                     title: updatedPost.title,
                     upvotes: updatedPost.ups,
                     commentCount: updatedPost.num_comments,
-                    subreddit: updatedPost.subreddit.display_name
+                    subreddit: updatedPost?.subreddit?.display_name
                 });
                 logger.info(`Post performance analysis: ${analysis}`);
                 await saveStats({
@@ -156,7 +156,7 @@ const handleUserInteractions = async () => {
             logger.info(`Responded to user interaction: ${item.id}`);
             await saveStats({
                 interactions: {
-                    [item.id]: { type: item.type, subreddit: item.subreddit.display_name }
+                    [item.id]: { type: item.type, subreddit: item?.subreddit?.display_name }
                 }
             });
         }

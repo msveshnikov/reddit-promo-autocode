@@ -65,7 +65,7 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
     keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
-        cron: '0 7 * * *'
+        cron: '0 9 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
