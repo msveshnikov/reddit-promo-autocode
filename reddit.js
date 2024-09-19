@@ -178,7 +178,9 @@ const generatePersonalizedPosts = async () => {
         const optimizedContent = await optimizeContentForKeywords(content, keywords);
         const [title, ...textParts] = optimizedContent.split('\n');
         const text = textParts.join('\n');
-
+        if (title?.length < 5) {
+            return;
+        }
         if (config.internationalization.enabled) {
             const language = getRandomLanguage();
             const translatedContent = await generateMultilingualContent(optimizedContent, language);
