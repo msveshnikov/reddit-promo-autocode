@@ -8,7 +8,7 @@ import {
     generateRedditComment,
     analyzePostPerformance,
     generatePersonalizedContent,
-    handleUserInteraction,
+    // handleUserInteraction,
     optimizeContentForKeywords,
     generateMultilingualContent,
     scoreContent,
@@ -49,7 +49,7 @@ const commentLimiter = new RateLimiter({
 
 const postLimiter = new RateLimiter({
     tokensPerInterval: config.interactionLimits.maxPostsPerDay,
-    interval: 'day'
+    interval: 'hour'
 });
 
 const r = new snoowrap({
@@ -106,7 +106,7 @@ const generateCreativePost = async () => {
         const [title, ...textParts] = content.split('\n');
         const text = textParts.join('\n');
 
-        const optimizedText = await optimizeContentForKeywords(text, ['AutoCode', 'AI', 'coding']);
+        const optimizedText = await optimizeContentForKeywords(text,config.keywordsToInject);
         const score = await scoreContent(optimizedText);
 
         if (score < config.contentScoring.minScore) {
@@ -145,25 +145,25 @@ const generateCreativePost = async () => {
     }
 };
 
-const handleUserInteractions = async () => {
-    try {
-        const inbox = await r.getInbox();
-        for (const item of inbox) {
-            if (!item.new) continue;
-            const response = await handleUserInteraction(item.body);
-            await item.reply(response);
-            // await item.markAsRead();
-            logger.info(`Responded to user interaction: ${item.id}`);
-            await saveStats({
-                interactions: {
-                    [item.id]: { type: item.type, subreddit: item?.subreddit?.display_name }
-                }
-            });
-        }
-    } catch (error) {
-        logger.error('Error in handleUserInteractions:', error);
-    }
-};
+// const handleUserInteractions = async () => {
+//     try {
+//         const inbox = await r.getInbox();
+//         for (const item of inbox) {
+//             if (!item.new) continue;
+//             const response = await handleUserInteraction(item.body);
+//             await item.reply(response);
+//             // await item.markAsRead();
+//             logger.info(`Responded to user interaction: ${item.id}`);
+//             await saveStats({
+//                 interactions: {
+//                     [item.id]: { type: item.type, subreddit: item?.subreddit?.display_name }
+//                 }
+//             });
+//         }
+//     } catch (error) {
+//         logger.error('Error in handleUserInteractions:', error);
+//     }
+// };
 
 const generatePersonalizedPosts = async () => {
     try {
@@ -298,10 +298,10 @@ const dailyTasks = async () => {
     await findAndCommentOnPosts();
     await generateCreativePost();
     await generatePersonalizedPosts();
-    await handleUserInteractions();
-    if (new Date().getDay() === 1) {
+    // await handleUserInteractions();
+    // if (new Date().getDay() === 1) {
         await generateSpecialContent();
-    }
+    // }
 };
 
 const startScheduler = () => {
