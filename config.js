@@ -34,7 +34,23 @@ export default {
         ]
     },
     mainSubreddit: 'travel',
-    targetSubreddits: ['travel', 'solotravel', 'backpacking', 'digitalnomad', 'TravelHacks'],
+    targetSubreddits: [
+        'travel',
+        'solotravel',
+        'backpacking',
+        'digitalnomad',
+        'TravelHacks',
+        'traveltips',
+        'travelpartners',
+        'shoestring',
+        'roadtrip',
+        'Europetravel',
+        'JapanTravel',
+        'traveladvice',
+        'travelnopics',
+        'backpackers',
+        'onebag'
+    ],
     keywordsToTrack: ['travel planning', 'itinerary', 'AI travel'],
     keywordsToInject: ['MyTrip.city', 'AI travel planner', 'personalized itinerary'],
     postSchedule: {
