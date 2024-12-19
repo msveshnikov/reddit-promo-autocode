@@ -1,44 +1,54 @@
 export default {
     product: {
-        name: 'MyTrip.city',
+        name: 'Cyberia.fun',
         description: `
 {
     "twitter": [
         "🌍 Introducing MyTrip.city - Your AI-powered travel companion! Generate personalized 2-3 day itineraries for any destination with stunning visuals and audio guides. Plan your next adventure in seconds! #TravelTech #AI https://mytrip.city",
+
         "🎯 Perfect travel planning made easy:\n✅ AI-generated itineraries\n✅ Visual-rich content\n✅ Audio guides\n✅ Carbon footprint calculator\n✅ Weather integration\nStart exploring now at https://mytrip.city #Travel #TechInnovation",
+
         "🚀 Travel smarter with MyTrip.city:\n• Personalized itineraries\n• GPS-based audio guides\n• Local events integration\n• Packing list generator\n• Multi-language support\nTry it free today! #TravelPlanning #AI"
     ],
+
     "linkedin": [
         "🌟 Excited to introduce MyTrip.city - an innovative AI-powered travel itinerary generator that's revolutionizing how we plan trips!\n\nOur platform combines cutting-edge AI technology with practical travel planning tools to create personalized 2-3 day itineraries for any destination worldwide. Whether you're a solo traveler or planning a group trip, MyTrip.city provides everything you need for the perfect journey.\n\nTry it now at https://mytrip.city\n\n#TravelTechnology #AI #Innovation #TravelPlanning",
+
         "🎯 Transform Your Travel Planning with MyTrip.city\n\nKey Features:\n• AI-generated personalized itineraries\n• Visual-rich content with stunning destination images\n• GPS-based audio guides\n• Carbon footprint calculator\n• Real-time weather integration\n• Local event recommendations\n• Multi-language support\n\nExperience the future of travel planning at https://mytrip.city\n\n#TravelTech #Innovation #AI #DigitalTransformation",
+
         "🚀 MyTrip.city: Where AI Meets Travel Planning\n\nProudly announcing our comprehensive travel planning solution that helps travelers:\n✅ Save time with instant itinerary generation\n✅ Discover hidden gems with local insights\n✅ Stay organized with smart packing lists\n✅ Track carbon footprint\n✅ Access offline guides\n\nStart planning your next adventure at https://mytrip.city\n\n#TravelInnovation #AI #TechnologySolutions"
     ],
+
     "facebook": [
         "🌎 Introducing MyTrip.city - Your Personal AI Travel Planner!\n\nTired of spending hours planning your trips? Let our AI-powered platform create the perfect itinerary for you in seconds! With stunning visuals, audio guides, and personalized recommendations, planning your next adventure has never been easier.\n\nTry it now: https://mytrip.city\n\n#TravelPlanning #AI #Innovation",
+
         "✈️ Make Your Travel Dreams Reality with MyTrip.city!\n\nDiscover what makes us special:\n🎯 AI-generated personalized itineraries\n📸 Beautiful destination photos\n🎧 GPS-based audio guides\n🌡️ Real-time weather updates\n🎫 Local event recommendations\n📝 Smart packing lists\n♻️ Carbon footprint tracking\n\nStart planning your perfect trip today: https://mytrip.city",
+
         "🌟 Transform Your Travel Experience with MyTrip.city!\n\nOur platform offers:\n• Personalized 2-3 day itineraries\n• Multi-language support\n• Offline access\n• Local cuisine recommendations\n• Weather integration\n• Social sharing\n• Mobile app access\n\nBest of all? It's free to try! Visit https://mytrip.city and start planning your next adventure today!\n\n#TravelPlanning #Innovation #AI"
     ]
 }
+
 `,
         advantages: [
-            'AI-powered itinerary generation',
-            'Personalized travel recommendations',
-            'GPS-based audio guides',
-            'Real-time weather integration',
-            'Carbon footprint calculator',
-            'Multi-language support',
-            'Offline access',
-            'Smart packing lists',
-            'Local event recommendations',
-            'Visual-rich content'
+            'AI-powered property generation using Stable Diffusion SDXL',
+            'Infinite map scrolling and exploration',
+            'User-owned 1024x1024 property tiles',
+            'Multiplayer interaction in a shared world',
+            'Browser-based gameplay (no downloads required'
         ]
     },
-    mainSubreddit: 'travel',
-    targetSubreddits: ['travel', 'solotravel', 'backpacking', 'digitalnomad', 'TravelHacks'],
-    keywordsToTrack: ['travel planning', 'itinerary', 'AI travel'],
-    keywordsToInject: ['MyTrip.city', 'AI travel planner', 'personalized itinerary'],
+    mainSubreddit: 'IndieDev',
+    targetSubreddits: [
+        'IndieDev',
+        'gamedev',
+        'playmygame',
+        'IndieGaming',
+        'gaming'
+    ],
+    keywordsToTrack: ['MainCraft', 'Roblox'],
+    keywordsToInject: ['Cyberia', 'Craft', 'SDXL'],
     postSchedule: {
-        cron: '0 21 * * *'
+        cron: '0 11 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
