@@ -1,58 +1,75 @@
 export default {
     product: {
-        name: 'Cyberia.fun',
-        description: `
-{
-    "twitter": [
-        "🌍 Introducing MyTrip.city - Your AI-powered travel companion! Generate personalized 2-3 day itineraries for any destination with stunning visuals and audio guides. Plan your next adventure in seconds! #TravelTech #AI https://mytrip.city",
+        name: 'AutoCode',
+        description: `# AutoCode
 
-        "🎯 Perfect travel planning made easy:\n✅ AI-generated itineraries\n✅ Visual-rich content\n✅ Audio guides\n✅ Carbon footprint calculator\n✅ Weather integration\nStart exploring now at https://mytrip.city #Travel #TechInnovation",
+AutoCode is an innovative automatic coding tool designed to bootstrap any software project incrementally, transforming README.md instructions into a fully functional software project using Claude 3.5 Sonnet API. AutoCode was bootstrapped by itself from one simple prompt.
 
-        "🚀 Travel smarter with MyTrip.city:\n• Personalized itineraries\n• GPS-based audio guides\n• Local events integration\n• Packing list generator\n• Multi-language support\nTry it free today! #TravelPlanning #AI"
-    ],
+https://autocode.work/
 
-    "linkedin": [
-        "🌟 Excited to introduce MyTrip.city - an innovative AI-powered travel itinerary generator that's revolutionizing how we plan trips!\n\nOur platform combines cutting-edge AI technology with practical travel planning tools to create personalized 2-3 day itineraries for any destination worldwide. Whether you're a solo traveler or planning a group trip, MyTrip.city provides everything you need for the perfect journey.\n\nTry it now at https://mytrip.city\n\n#TravelTechnology #AI #Innovation #TravelPlanning",
+## Features
 
-        "🎯 Transform Your Travel Planning with MyTrip.city\n\nKey Features:\n• AI-generated personalized itineraries\n• Visual-rich content with stunning destination images\n• GPS-based audio guides\n• Carbon footprint calculator\n• Real-time weather integration\n• Local event recommendations\n• Multi-language support\n\nExperience the future of travel planning at https://mytrip.city\n\n#TravelTech #Innovation #AI #DigitalTransformation",
+-   NodeJS-based console application
+-   Automatic code generation based on README.md instructions
+-   Utilizes Claude 3.5 Sonnet API for intelligent code generation
+-   Incremental project building
+-   Creates and modifies source files in the current folder and subfolders
+-   Self-updating README.md with new design ideas and considerations
+-   Code quality checks and suggestions/auto fixes
+-   Automatic dependency management and creation of missing files
+-   Adherence to DRY, KISS, and SRP principles
+-   Intelligent code analysis and refactoring suggestions
+-   Automated documentation generation
+-   User-friendly command-line interface
+-   Support for multiple programming languages
+-   AI-powered agents for specialized tasks
+-   Pricing tiers with license management
+-   Cross-platform compatibility (Windows, macOS, Linux)
+-   Syntax checking and auto-fixing
 
-        "🚀 MyTrip.city: Where AI Meets Travel Planning\n\nProudly announcing our comprehensive travel planning solution that helps travelers:\n✅ Save time with instant itinerary generation\n✅ Discover hidden gems with local insights\n✅ Stay organized with smart packing lists\n✅ Track carbon footprint\n✅ Access offline guides\n\nStart planning your next adventure at https://mytrip.city\n\n#TravelInnovation #AI #TechnologySolutions"
-    ],
+## Installation
 
-    "facebook": [
-        "🌎 Introducing MyTrip.city - Your Personal AI Travel Planner!\n\nTired of spending hours planning your trips? Let our AI-powered platform create the perfect itinerary for you in seconds! With stunning visuals, audio guides, and personalized recommendations, planning your next adventure has never been easier.\n\nTry it now: https://mytrip.city\n\n#TravelPlanning #AI #Innovation",
+No installation is required. AutoCode can be run directly using npx.
 
-        "✈️ Make Your Travel Dreams Reality with MyTrip.city!\n\nDiscover what makes us special:\n🎯 AI-generated personalized itineraries\n📸 Beautiful destination photos\n🎧 GPS-based audio guides\n🌡️ Real-time weather updates\n🎫 Local event recommendations\n📝 Smart packing lists\n♻️ Carbon footprint tracking\n\nStart planning your perfect trip today: https://mytrip.city",
+## Usage
 
-        "🌟 Transform Your Travel Experience with MyTrip.city!\n\nOur platform offers:\n• Personalized 2-3 day itineraries\n• Multi-language support\n• Offline access\n• Local cuisine recommendations\n• Weather integration\n• Social sharing\n• Mobile app access\n\nBest of all? It's free to try! Visit https://mytrip.city and start planning your next adventure today!\n\n#TravelPlanning #Innovation #AI"
-    ]
-}
+1. Create CLAUDE_KEY environment variable 
+2. Navigate to your project folder in the terminal.
+3. Run the following command:
 
-`,
+npx autocode-ai
+
+4. Follow the prompts and watch as your project comes to life!
+
+## How It Works
+
+AutoCode reads your README.md file and your sources and sends the instructions to the Claude 3.5 Sonnet API. The API interprets the instructions and generates the necessary code structure, files, and content. AutoCode then saves the generated code back to your project directory. It can now generate code for different languages based on the project requirements and applies language-specific linting and formatting.`,
         advantages: [
-            'AI-powered property generation using Stable Diffusion SDXL',
-            'Infinite map scrolling and exploration',
-            'User-owned 1024x1024 property tiles',
-            'Multiplayer interaction in a shared world',
-            'Browser-based gameplay (no downloads required'
+            'Fast and efficient code generation',
+            'Seamless integration with popular development environments',
+            'Advanced AI-powered code suggestions',
+            'Customizable to fit various coding styles and preferences'
         ]
     },
-    mainSubreddit: 'IndieDev',
+    mainSubreddit: 'SaaSMarketing',
     targetSubreddits: [
-        'IndieDev',
-        'gamedev',
-        'playmygame',
-        'IndieGaming',
-        'gaming'
+        'saas',
+        'ClaudeAI',
+        'ArtificialInteligence',
+        'SideProject',
+        'OnlyAICoding',
+        'LocalLLaMA',
+        'ChatGPTCoding',
+        'Bard'
     ],
-    keywordsToTrack: ['MainCraft', 'Roblox'],
-    keywordsToInject: ['Cyberia', 'Craft', 'SDXL'],
+    keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
+    keywordsToInject: ['AutoCode', 'AI', 'coding'],
     postSchedule: {
-        cron: '0 11 * * *'
+        cron: '0 8 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
-        maxPostsPerDay: 10,
+        maxPostsPerDay: 5,
         minTimeBetweenComments: 600
     },
     contentGeneration: {
