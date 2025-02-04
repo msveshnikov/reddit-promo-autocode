@@ -1,71 +1,51 @@
 export default {
     product: {
         name: 'AutoCode',
-        description: `# AutoCode
+        description: `# MyLog.food - AI-Powered Nutrition & Fitness Tracker
 
-AutoCode is an innovative automatic coding tool designed to bootstrap any software project incrementally, transforming README.md instructions into a fully functional software project using Claude 3.5 Sonnet API. AutoCode was bootstrapped by itself from one simple prompt.
+## Overview
 
-https://autocode.work/
+MyLog.food is a smart nutrition and fitness tracking Progressive Web App (PWA) that leverages
+state-of-the-art AI to process natural language food entries and provide comprehensive nutritional
+insights. Designed with a mobile-first approach and built for performance, our platform aims to
+empower users with accurate, personalized, and actionable health data—all while offering an engaging
+user experience.
+
+![Hero Image](public/hero.jpg)
+
+# PROD
+
+https://MyLog.food
 
 ## Features
 
--   NodeJS-based console application
--   Automatic code generation based on README.md instructions
--   Utilizes Claude 3.5 Sonnet API for intelligent code generation
--   Incremental project building
--   Creates and modifies source files in the current folder and subfolders
--   Self-updating README.md with new design ideas and considerations
--   Code quality checks and suggestions/auto fixes
--   Automatic dependency management and creation of missing files
--   Adherence to DRY, KISS, and SRP principles
--   Intelligent code analysis and refactoring suggestions
--   Automated documentation generation
--   User-friendly command-line interface
--   Support for multiple programming languages
--   AI-powered agents for specialized tasks
--   Pricing tiers with license management
--   Cross-platform compatibility (Windows, macOS, Linux)
--   Syntax checking and auto-fixing
-
-## Installation
-
-No installation is required. AutoCode can be run directly using npx.
-
-## Usage
-
-1. Create CLAUDE_KEY environment variable 
-2. Navigate to your project folder in the terminal.
-3. Run the following command:
-
-npx autocode-ai
-
-4. Follow the prompts and watch as your project comes to life!
-
-## How It Works
-
-AutoCode reads your README.md file and your sources and sends the instructions to the Claude 3.5 Sonnet API. The API interprets the instructions and generates the necessary code structure, files, and content. AutoCode then saves the generated code back to your project directory. It can now generate code for different languages based on the project requirements and applies language-specific linting and formatting.`,
+- 🍎 Natural Language Food Entry with contextual suggestions
+- 🧮 AI-Powered Nutrition Analysis using the specialized gpt-4o-mini model
+- 📊 Comprehensive Nutrient Tracking
+    - Calories
+    - Macronutrients
+    - Vitamins (A, B1, B3, B6, B12, C, D)
+- 💪 Exercise Logging and custom metric tracking
+- 📱 Daily Energy Balance Dashboard with interactive visualizations
+- 📈 Vitamin Progress Visualization and Health Score Algorithm
+- 👤 Personal Profile Management with smart goal tracking (weight loss, weight gain, maintenance)
+- 🔍 Food Image Recognition with AR overlay support and improved portion size estimation
+- 📸 Barcode Scanner Integration for quick food logging
+- 🎨 Animated emoji feedback that zooms and explodes upon food log entry`,
         advantages: [
-            'Fast and efficient code generation',
-            'Seamless integration with popular development environments',
-            'Advanced AI-powered code suggestions',
-            'Customizable to fit various coding styles and preferences'
+            'Smart Meal Recommendations based on dietary patterns',
+            'Portion Size Detection and Dietary Pattern Analysis',
+            'Progress Predictions and Goal Achievement Paths',
+            'AR Food Recognition'
         ]
     },
-    mainSubreddit: 'SaaSMarketing',
-    targetSubreddits: [
-        'saas',
-        'ClaudeAI',
-        'ArtificialInteligence',
-        'SideProject',
-        'OnlyAICoding',
-        'LocalLLaMA',
-        'ChatGPTCoding',
-        'Bard'
-    ],
-    keywordsToTrack: ['aider', 'Claude Dev', 'Cursor AI', 'continue.dev', 'v0'],
-    keywordsToInject: ['AutoCode', 'AI', 'coding'],
+
+    mainSubreddit: 'HealthyFood',
+    targetSubreddits: ['Nutrition', 'HealthyFood', 'MealPrep', 'FoodPorn', 'Fitness'],
+    keywordsToTrack: ['food log', 'nutrition tracker', 'meal tracking', 'healthy eating'],
+    keywordsToInject: ['FoodLog', 'Nutrition', 'Tracker', 'MyLogFood'],
     postSchedule: {
-        cron: '0 8 * * *'
+        cron: '0 21 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
@@ -115,8 +95,8 @@ AutoCode reads your README.md file and your sources and sends the instructions t
     },
     plugins: [],
     claudeConfig: {
-        model: 'claude-3-5-sonnet-20240620',
-        maxTokens: 250,
+        model: 'claude-3-5-sonnet-20241022',
+        maxTokens: 350,
         temperature: 0.9
     },
     contentScoring: {
