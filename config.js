@@ -56,7 +56,17 @@ effortlessly capture, organize, and extract valuable insights from their voice n
         'iosapps',
         'voice',
         'voicetech',
-        'markdown'
+        'markdown',
+        'speechtotext',
+        'deeplearning',
+        'nlp',
+        'ObsidianMD',
+        'Zettelkasten',
+        'notetaking',
+        'Evernote',
+        'OneNote',
+        'BearApp',
+        'RoamResearch'
     ],
     keywordsToTrack: [
         'voice notes',
