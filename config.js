@@ -1,51 +1,73 @@
 export default {
     product: {
-        name: 'AutoCode',
-        description: `# MyLog.food - AI-Powered Nutrition & Fitness Tracker
-
-## Overview
-
-MyLog.food is a smart nutrition and fitness tracking Progressive Web App (PWA) that leverages
-state-of-the-art AI to process natural language food entries and provide comprehensive nutritional
-insights. Designed with a mobile-first approach and built for performance, our platform aims to
-empower users with accurate, personalized, and actionable health data—all while offering an engaging
-user experience.
-
-![Hero Image](public/hero.jpg)
+        name: 'MaxNotes',
+        description: `MaxNotes.app - AI Voice Markdown Notes Organizer
 
 # PROD
 
-https://MyLog.food
+https://MaxNotes.app
 
-## Features
+## Overview
 
-- 🍎 Natural Language Food Entry with contextual suggestions
-- 🧮 AI-Powered Nutrition Analysis using the specialized gpt-4o-mini model
-- 📊 Comprehensive Nutrient Tracking
-    - Calories
-    - Macronutrients
-    - Vitamins (A, B1, B3, B6, B12, C, D)
-- 💪 Exercise Logging and custom metric tracking
-- 📱 Daily Energy Balance Dashboard with interactive visualizations
-- 📈 Vitamin Progress Visualization and Health Score Algorithm
-- 👤 Personal Profile Management with smart goal tracking (weight loss, weight gain, maintenance)
-- 🔍 Food Image Recognition with AR overlay support and improved portion size estimation
-- 📸 Barcode Scanner Integration for quick food logging
-- 🎨 Animated emoji feedback that zooms and explodes upon food log entry`,
+MaxNotes is a cutting-edge application designed to revolutionize voice note organization and
+management using the power of AI. It offers a seamless experience for capturing voice memos,
+automatically transcribing them, and intelligently organizing them into markdown notes. MaxNotes
+leverages advanced AI integrations and a thoughtfully designed user interface to empower users to
+effortlessly capture, organize, and extract valuable insights from their voice notes.
+
+## Key Features
+
+- **AI-Powered Voice Transcription & Markdown Conversion:** Automatically transcribes voice notes
+  into text and formats them as markdown for easy editing and organization.
+- **Photo and Image Recognition:** Utilizes AI to analyze and tag images, making them searchable and
+  categorizable within notes.
+- **Intelligent Note Organization:** Leverages AI to categorize and tag notes, making them easily
+  searchable and retrievable.
+- **Advanced Semantic Search:** Powerful search capabilities powered by multiple AI engines to find
+  notes based on meaning and context, not just keywords.
+- **Secure User Authentication:** Robust user authentication system with enhanced privacy controls
+  to protect user data.
+- **Offline Functionality with PWA:** Progressive Web App features for offline access and seamless
+  updates, ensuring notes are accessible anytime, anywhere.
+- **Markdown, Mermaid, and Diagram Support:** Future implementation to allow rich note-taking with
+  markdown formatting, diagrams, and flowcharts.
+- **Real-time Collaboration (Future):** Planned support for collaborative note editing in real-time.
+`,
         advantages: [
-            'Smart Meal Recommendations based on dietary patterns',
-            'Portion Size Detection and Dietary Pattern Analysis',
-            'Progress Predictions and Goal Achievement Paths',
-            'AR Food Recognition'
+            'Effortless Voice Note Taking with AI Transcription',
+            'Organize Notes Intelligently with AI Categorization',
+            'Semantic Search to Find Notes by Meaning',
+            'Access Notes Offline with PWA Support',
+            'Capture and Organize Images within Notes'
         ]
     },
-
-    mainSubreddit: 'HealthyFood',
-    targetSubreddits: ['Nutrition', 'HealthyFood', 'MealPrep', 'FoodPorn', 'Fitness'],
-    keywordsToTrack: ['food log', 'nutrition tracker', 'meal tracking', 'healthy eating'],
-    keywordsToInject: ['FoodLog', 'Nutrition', 'Tracker', 'MyLogFood'],
+    mainSubreddit: 'productivity',
+    targetSubreddits: [
+        'productivity',
+        'notes',
+        'artificialintelligence',
+        'MachineLearning',
+        'technology',
+        'apps',
+        'writing',
+        'pwa',
+        'software',
+        'androidapps',
+        'iosapps',
+        'voice',
+        'voicetech',
+        'markdown'
+    ],
+    keywordsToTrack: [
+        'voice notes',
+        'ai notes',
+        'markdown notes',
+        'note taking app',
+        'voice to text'
+    ],
+    keywordsToInject: ['MaxNotes', 'VoiceNotesAI', 'AINoteTaking', 'MarkdownNotes'],
     postSchedule: {
-        cron: '0 21 * * *'
+        cron: '0 13 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
