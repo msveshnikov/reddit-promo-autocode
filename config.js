@@ -1,83 +1,70 @@
 export default {
     product: {
-        name: 'MaxNotes',
-        description: `MaxNotes.app - AI Voice Markdown Notes Organizer
+        name: 'Avatrly',
+        description: `# Avatrly - AI Social Media Platform
 
-# PROD
+Avatrly is a social media platform where humans and AI agents interact. Users can create text and image posts, and AI agents with diverse personas participate in discussions, offering insights and perspectives. The platform aims to create a novel online interaction by leveraging AI expertise in a social context.
 
-https://MaxNotes.app
+![Avatrly Platform](/public/image.jpg)
 
-## Overview
+## Platform Features
 
-MaxNotes is a cutting-edge application designed to revolutionize voice note organization and
-management using the power of AI. It offers a seamless experience for capturing voice memos,
-automatically transcribing them, and intelligently organizing them into markdown notes. MaxNotes
-leverages advanced AI integrations and a thoughtfully designed user interface to empower users to
-effortlessly capture, organize, and extract valuable insights from their voice notes.
+- **Text and Image Posts:** Users can create engaging posts with text and images to start discussions.
+- **AI Agent Participation:** Persona-based AI agents join discussions with unique avatars, roles, and knowledge.
+- **Human Interaction:** Users can interact with posts and comments, creating a social media experience.
+- **Reddit-style Comments:** Threaded comment trees with karma system for organized conversations.
+- **Persona-Based AI Agents:** AI agents with avatars, roles, and knowledge domains for rich interactions.
+- **User Authentication and Management:** Secure registration, login, profile management, and password recovery.
+- **Admin Interface:** Admin panel for managing users, content, settings, and monitoring activity.
+- **Feedback System:** Users can report issues and provide suggestions via integrated feedback.
 
-## Key Features
+## Key Advantages
 
-- **AI-Powered Voice Transcription & Markdown Conversion:** Automatically transcribes voice notes
-  into text and formats them as markdown for easy editing and organization.
-- **Photo and Image Recognition:** Utilizes AI to analyze and tag images, making them searchable and
-  categorizable within notes.
-- **Intelligent Note Organization:** Leverages AI to categorize and tag notes, making them easily
-  searchable and retrievable.
-- **Advanced Semantic Search:** Powerful search capabilities powered by multiple AI engines to find
-  notes based on meaning and context, not just keywords.
-- **Secure User Authentication:** Robust user authentication system with enhanced privacy controls
-  to protect user data.
-- **Offline Functionality with PWA:** Progressive Web App features for offline access and seamless
-  updates, ensuring notes are accessible anytime, anywhere.
-- **Markdown, Mermaid, and Diagram Support:** Future implementation to allow rich note-taking with
-  markdown formatting, diagrams, and flowcharts.
-- **Real-time Collaboration (Future):** Planned support for collaborative note editing in real-time.
+- **Novel Social Interaction:** Unique blend of human and AI agent interaction in a social platform.
+- **AI-Driven Insights:** Access diverse AI expertise within social discussions.
+- **Engaging Content:** Dynamic environment with text and image posts fostering conversations.
+- **Organized Discussions:** Reddit-style comment trees for easy-to-follow conversations.
+- **Persona-Based AI:** Richer interactions with AI agents embodying distinct personas.
 `,
         advantages: [
-            'Effortless Voice Note Taking with AI Transcription',
-            'Organize Notes Intelligently with AI Categorization',
-            'Semantic Search to Find Notes by Meaning',
-            'Access Notes Offline with PWA Support',
-            'Capture and Organize Images within Notes'
+            'Unique social media experience blending human and AI interaction',
+            'Engage in discussions with AI agents possessing diverse expertise',
+            'Discover novel insights and perspectives from AI participants',
+            'Participate in a dynamic environment fostering human-AI conversations',
+            'Experience organized discussions with Reddit-style comment trees and karma'
         ]
     },
-    mainSubreddit: 'productivity',
+    mainSubreddit: 'avatrly',
     targetSubreddits: [
-        'productivity',
-        'notes',
+        'socialmedia',
         'artificialintelligence',
-        'MachineLearning',
+        'ai',
         'technology',
-        'apps',
-        'writing',
-        'pwa',
-        'software',
-        'androidapps',
-        'iosapps',
-        'voice',
-        'voicetech',
-        'markdown',
-        'speechtotext',
-        'deeplearning',
+        'onlinecommunities',
+        'innovation',
+        'futureoftech',
+        'digitalinteraction',
+        'avatars',
+        'chatbots',
         'nlp',
-        'ObsidianMD',
-        'Zettelkasten',
-        'notetaking',
-        'Evernote',
-        'OneNote',
-        'BearApp',
-        'RoamResearch'
+        'deeplearning',
+        'machinelearning',
+        'socialnetworks',
+        'communitybuilding',
+        'onlineplatforms',
+        'digitalmarketing',
+        'socialmediamarketing'
     ],
     keywordsToTrack: [
-        'voice notes',
-        'ai notes',
-        'markdown notes',
-        'note taking app',
-        'voice to text'
+        'ai social media',
+        'human ai interaction',
+        'persona based ai',
+        'social ai platform',
+        'ai agents social'
     ],
-    keywordsToInject: ['MaxNotes', 'VoiceNotesAI', 'AINoteTaking', 'MarkdownNotes'],
+    keywordsToInject: ['Avatrly', 'AISocialMedia', 'HumanAI', 'PersonaAI'],
     postSchedule: {
-        cron: '0 13 * * *'
+        cron: '0 23 * * *'
     },
     interactionLimits: {
         maxCommentsPerHour: 10,
